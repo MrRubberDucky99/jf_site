@@ -3,11 +3,8 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import ResponsiveAppBar from "./components/TopNav";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { purple } from "@mui/material/colors";
-import Button from "@mui/material/Button";
-import { useTheme } from "@emotion/react";
 import { blue, red } from "@mui/material/colors";
 
 declare module "@mui/material/Button" {
