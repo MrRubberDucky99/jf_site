@@ -6,7 +6,7 @@ function App() {
 	return (
 		<div className="App">
 			<header className="App-header">
-				<ConstructionIcon color="primary" fontSize="large" />
+				<ConstructionIcon color="primary" sx={{ fontSize: 128 }} />
 				<p>
 					I need to edit <code>src/App.tsx</code> and get my website working.
 					BRB!
