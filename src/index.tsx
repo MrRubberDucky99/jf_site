@@ -5,7 +5,6 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import ResponsiveAppBar from "./components/TopNav";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { purple, blue, red } from "@mui/material/colors";
 
 declare module "@mui/material/Button" {
 	interface ButtonPropsVariantOverrides {
@@ -16,12 +15,14 @@ declare module "@mui/material/Button" {
 const theme = createTheme({
 	palette: {
 		primary: {
-			// Purple and green play nicely together.
-			main: purple[500],
+			main: "#1565c0",
+			light: "#5e92f3",
+			dark: "#003c8f",
 		},
 		secondary: {
-			// This is green.A700 as hex.
-			main: "#11cb5f",
+			main: "#4a148c",
+			light: "#7c43bd",
+			dark: "#12005e",
 		},
 	},
 	components: {
@@ -31,13 +32,13 @@ const theme = createTheme({
 					props: { variant: "dashed" },
 					style: {
 						textTransform: "none",
-						border: `2px dashed ${blue[500]}`,
+						border: `2px dashed`,
 					},
 				},
 				{
 					props: { variant: "dashed", color: "secondary" },
 					style: {
-						border: `4px dashed ${red[500]}`,
+						border: `4px dashed`,
 					},
 				},
 			],
