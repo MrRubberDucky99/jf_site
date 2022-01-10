@@ -11,14 +11,6 @@ function App() {
 					I need to edit <code>src/App.tsx</code> and get my website working.
 					BRB!
 				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn React
-				</a>
 			</header>
 		</div>
 	);
