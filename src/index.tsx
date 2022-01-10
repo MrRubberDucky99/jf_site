@@ -5,8 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import ResponsiveAppBar from "./components/TopNav";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { purple } from "@mui/material/colors";
-import { blue, red } from "@mui/material/colors";
+import { purple, blue, red } from "@mui/material/colors";
 
 declare module "@mui/material/Button" {
 	interface ButtonPropsVariantOverrides {
