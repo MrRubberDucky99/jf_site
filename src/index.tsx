@@ -1,14 +1,35 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import ResponsiveAppBar from "./components/TopNav";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { purple } from "@mui/material/colors";
+import Button from "@mui/material/Button";
+import { useTheme } from "@emotion/react";
+
+const theme = createTheme({
+	palette: {
+		primary: {
+			// Purple and green play nicely together.
+			main: purple[500],
+		},
+		secondary: {
+			// This is green.A700 as hex.
+			main: "#11cb5f",
+		},
+	},
+});
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+	<React.StrictMode>
+		<ThemeProvider theme={theme}>
+			<ResponsiveAppBar />
+			<App />
+		</ThemeProvider>
+	</React.StrictMode>,
+	document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
