@@ -8,6 +8,13 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { purple } from "@mui/material/colors";
 import Button from "@mui/material/Button";
 import { useTheme } from "@emotion/react";
+import { blue, red } from "@mui/material/colors";
+
+declare module "@mui/material/Button" {
+	interface ButtonPropsVariantOverrides {
+		dashed: true;
+	}
+}
 
 const theme = createTheme({
 	palette: {
@@ -18,6 +25,25 @@ const theme = createTheme({
 		secondary: {
 			// This is green.A700 as hex.
 			main: "#11cb5f",
+		},
+	},
+	components: {
+		MuiButton: {
+			variants: [
+				{
+					props: { variant: "dashed" },
+					style: {
+						textTransform: "none",
+						border: `2px dashed ${blue[500]}`,
+					},
+				},
+				{
+					props: { variant: "dashed", color: "secondary" },
+					style: {
+						border: `4px dashed ${red[500]}`,
+					},
+				},
+			],
 		},
 	},
 });
