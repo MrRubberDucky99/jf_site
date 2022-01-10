@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import ConstructionIcon from "@mui/icons-material/Construction";
 
