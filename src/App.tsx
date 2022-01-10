@@ -6,7 +6,7 @@ function App() {
 	return (
 		<div className="App">
 			<header className="App-header">
-				<ConstructionIcon />
+				<ConstructionIcon color="primary" fontSize="large" />
 				<p>
 					I need to edit <code>src/App.tsx</code> and get my website working.
 					BRB!
