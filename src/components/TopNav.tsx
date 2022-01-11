@@ -32,7 +32,7 @@ const ResponsiveAppBar = () => {
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
 					<Typography
-						variant="h6"
+						variant="h5"
 						noWrap
 						component="div"
 						sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
@@ -74,12 +74,10 @@ const ResponsiveAppBar = () => {
 							}}
 						>
 							{pages.map((page) => (
-								<MenuItem
-									key={page}
-									onClick={handleCloseNavMenu}
-									className="MenuItem"
-								>
-									<Typography textAlign="center">{page}</Typography>
+								<MenuItem key={page} onClick={handleCloseNavMenu}>
+									<Typography textAlign="center" variant="h6">
+										{page}
+									</Typography>
 								</MenuItem>
 							))}
 						</Menu>
