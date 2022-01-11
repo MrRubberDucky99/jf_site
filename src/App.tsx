@@ -1,10 +1,11 @@
 import React from "react";
 import "./App.css";
 import ConstructionIcon from "@mui/icons-material/Construction";
+import { palette } from "@mui/system";
 
 function App() {
 	return (
-		<div className="App">
+		<div className="App" sx={{ bgcolor: "secondary.dark" }}>
 			<header className="App-header">
 				<ConstructionIcon color="primary" sx={{ fontSize: 128 }} />
 				<p>
