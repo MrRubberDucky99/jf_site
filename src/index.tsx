@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import ResponsiveAppBar from "./components/TopNav";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Box } from "@mui/material";
 
 declare module "@mui/material/Button" {
 	interface ButtonPropsVariantOverrides {
@@ -49,8 +50,10 @@ const theme = createTheme({
 ReactDOM.render(
 	<React.StrictMode>
 		<ThemeProvider theme={theme}>
-			<ResponsiveAppBar />
-			<App />
+			<Box>
+				<ResponsiveAppBar />
+				<App />
+			</Box>
 		</ThemeProvider>
 	</React.StrictMode>,
 	document.getElementById("root")
