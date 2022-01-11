@@ -50,7 +50,7 @@ const theme = createTheme({
 ReactDOM.render(
 	<React.StrictMode>
 		<ThemeProvider theme={theme}>
-			<Box>
+			<Box sx={{ backgroundColor: "secondary.dark" }}>
 				<ResponsiveAppBar />
 				<App />
 			</Box>
