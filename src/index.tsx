@@ -6,6 +6,21 @@ import reportWebVitals from "./reportWebVitals";
 import ResponsiveAppBar from "./components/TopNav";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box } from "@mui/material";
+import { initializeApp } from "firebase/app";
+import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
+
+const firebaseConfig = {
+	apiKey: "AIzaSyD2-zWfHRuAeWfrLviTbD4hdG_wzGyEf24",
+	authDomain: "jf-site-77189.firebaseapp.com",
+	projectId: "jf-site-77189",
+	storageBucket: "jf-site-77189.appspot.com",
+	messagingSenderId: "287898296891",
+	appId: "1:287898296891:web:87b942162320dfc9f7321e",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore();
 
 declare module "@mui/material/Button" {
 	interface ButtonPropsVariantOverrides {
@@ -63,6 +78,17 @@ const theme = createTheme({
 	},
 });
 
+async function getPages() {
+	const Snap = await getDocs(collection(db, "pages"));
+	let pages: any[] = [];
+	Snap.forEach((doc) => {
+		// doc.data() is never undefined for query doc snapshots
+		console.log(doc.id, " => ", doc.data());
+		pages.push(doc.data());
+	});
+	return pages;
+}
+console.log(getPages());
 ReactDOM.render(
 	<React.StrictMode>
 		<ThemeProvider theme={theme}>
