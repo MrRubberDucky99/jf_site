@@ -80,7 +80,7 @@ async function getSettings() {
 	let root: string;
 	const sys = await getDoc(doc(db, "settings", "settings1"));
 	const data = sys.data();
-	console.log(data);
+	//console.log(data);
 	if (data !== undefined) {
 		root = data.root;
 	} else {
@@ -100,7 +100,7 @@ async function getPages() {
 	let i = 0;
 	Snap.forEach((doc) => {
 		// doc.data() is never undefined for query doc snapshots
-		console.log(doc.id, " => ", doc.data());
+		//console.log(doc.id, " => ", doc.data());
 		pages.push(doc.data());
 		i++;
 	});
@@ -111,7 +111,7 @@ async function getPages() {
 
 let settings = getSettings();
 let pages = getPages();
-
+console.log(pages);
 ReactDOM.render(
 	<React.StrictMode>
 		<ThemeProvider theme={theme}>

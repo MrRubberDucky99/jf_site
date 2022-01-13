@@ -7,6 +7,7 @@ import { Construction } from "@mui/icons-material";
 interface element {}
 
 function App(pageIn: any) {
+	console.log("Page In: " + pageIn);
 	let page = (
 		<div className="App">
 			<header className="App-header">

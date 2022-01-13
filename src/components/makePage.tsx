@@ -9,17 +9,7 @@ interface dataFace {
 	root: string;
 }
 
-function getPageData(settings: any, pages: any) {
-	const data = {
-		pages,
-		root: pages.root,
-	};
-	for (let i = 0; i < pages.numPages; i++) {}
-	return data as dataFace;
-}
-
 function createPage(settings: any, pages: any) {
-	const data = getPageData(settings, pages);
 	return (
 		<Box
 			sx={{
@@ -32,7 +22,7 @@ function createPage(settings: any, pages: any) {
 			<ResponsiveAppBar />
 			<BrowserRouter>
 				<Routes>
-					<Route index element={<App page={data.pages} />} />
+					<Route index element={<App page={pages.pages[settings.root]} />} />
 				</Routes>
 			</BrowserRouter>
 		</Box>
