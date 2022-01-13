@@ -1,14 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import ResponsiveAppBar from "./components/TopNav";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Box } from "@mui/material";
 import { initializeApp } from "firebase/app";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
+import CreatePage from "./components/makePage";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyD2-zWfHRuAeWfrLviTbD4hdG_wzGyEf24",
@@ -78,24 +76,46 @@ const theme = createTheme({
 	},
 });
 
+async function getSettings() {
+	let root: string;
+	const sys = await getDoc(doc(db, "settings", "settings1"));
+	const data = sys.data();
+	console.log(data);
+	if (data !== undefined) {
+		root = data.root;
+	} else {
+		root = "Home";
+	}
+
+	return [root];
+}
+
 async function getPages() {
 	const Snap = await getDocs(collection(db, "pages"));
 	let pages: any[] = [];
+	const data = {
+		numPages: 0,
+		pages,
+	};
+	let i = 0;
 	Snap.forEach((doc) => {
 		// doc.data() is never undefined for query doc snapshots
 		console.log(doc.id, " => ", doc.data());
 		pages.push(doc.data());
+		i++;
 	});
-	return pages;
+	data.numPages = i;
+	data.pages = pages;
+	return data;
 }
-console.log(getPages());
+
+let settings = getSettings();
+let pages = getPages();
+
 ReactDOM.render(
 	<React.StrictMode>
 		<ThemeProvider theme={theme}>
-			<Box sx={{ backgroundColor: "secondary.dark" }}>
-				<ResponsiveAppBar />
-				<App />
-			</Box>
+			<CreatePage settings={settings} pages={pages} />
 		</ThemeProvider>
 	</React.StrictMode>,
 	document.getElementById("root")

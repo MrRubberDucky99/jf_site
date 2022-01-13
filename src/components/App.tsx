@@ -1,12 +1,12 @@
 import React from "react";
-import "./App.css";
+//import "./App.css";
 //import ConstructionIcon from "@mui/icons-material/Construction";
 import { Construction } from "@mui/icons-material";
 // background-color: #282c34;
 
 interface element {}
 
-function App(pageElements: element) {
+function App(pageIn: any) {
 	let page = (
 		<div className="App">
 			<header className="App-header">
