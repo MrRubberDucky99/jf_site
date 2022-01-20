@@ -7,6 +7,7 @@ import { initializeApp } from "firebase/app";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import CreatePage from "./components/makePage";
+import { useAsync } from "react-async";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyD2-zWfHRuAeWfrLviTbD4hdG_wzGyEf24",
@@ -109,8 +110,12 @@ async function getPages() {
 	return data;
 }
 
-let settings = getSettings();
-let pages = getPages();
+function getData(type:int) {
+	if typ
+}
+let { data, error } = useAsync({ getSettings });
+const settings = data;
+let { data, error } = useAsync({ getSettings });
 console.log(pages);
 ReactDOM.render(
 	<React.StrictMode>
