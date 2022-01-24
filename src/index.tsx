@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { initializeApp } from "firebase/app";
-import { doc, getDoc, collection, getDocs } from "firebase/firestore";
-import { getFirestore } from "firebase/firestore";
+import { getDatabase, ref, child, get } from "firebase/database";
 import CreatePage from "./components/makePage";
-import { useAsync } from "react-async";
+//import { useAsync } from "react-async";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyD2-zWfHRuAeWfrLviTbD4hdG_wzGyEf24",
 	authDomain: "jf-site-77189.firebaseapp.com",
+	databaseURL:
+		"https://jf-site-77189-default-rtdb.europe-west1.firebasedatabase.app",
 	projectId: "jf-site-77189",
 	storageBucket: "jf-site-77189.appspot.com",
 	messagingSenderId: "287898296891",
@@ -19,7 +20,8 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore();
+const database = getDatabase();
+const dbRef = ref(getDatabase());
 
 declare module "@mui/material/Button" {
 	interface ButtonPropsVariantOverrides {
@@ -77,51 +79,30 @@ const theme = createTheme({
 	},
 });
 
-async function getSettings() {
-	let root: string;
-	const sys = await getDoc(doc(db, "settings", "settings1"));
-	const data = sys.data();
-	//console.log(data);
-	if (data !== undefined) {
-		root = data.root;
-	} else {
-		root = "Home";
-	}
-
-	return [root];
-}
-
-async function getPages() {
-	const Snap = await getDocs(collection(db, "pages"));
-	let pages: any[] = [];
-	const data = {
-		numPages: 0,
-		pages,
-	};
-	let i = 0;
-	Snap.forEach((doc) => {
-		// doc.data() is never undefined for query doc snapshots
-		//console.log(doc.id, " => ", doc.data());
-		pages.push(doc.data());
-		i++;
+function RenderSite() {
+	const [settings, setSettings] = useState({});
+	const [pages, setPages] = useState({});
+	let resolved = false;
+	useEffect(() => {
+		get(child(dbRef, `settings/`)).then((snapshot) => {
+			setSettings({ snapshot });
+		});
 	});
-	data.numPages = i;
-	data.pages = pages;
-	return data;
-}
-
-function getData(type:int) {
-	if typ
-}
-let { data, error } = useAsync({ getSettings });
-const settings = data;
-let { data, error } = useAsync({ getSettings });
-console.log(pages);
-ReactDOM.render(
-	<React.StrictMode>
+	/**useEffect(() => {
+		getDocs(collection(db, "pages")).then((data) => {
+			setPages(data);
+		});
+	});*/
+	console.log(settings);
+	return (
 		<ThemeProvider theme={theme}>
 			<CreatePage settings={settings} pages={pages} />
 		</ThemeProvider>
+	);
+}
+ReactDOM.render(
+	<React.StrictMode>
+		<RenderSite />
 	</React.StrictMode>,
 	document.getElementById("root")
 );

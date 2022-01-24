@@ -2,15 +2,10 @@ import React from "react";
 import { Box } from "@mui/material";
 import ResponsiveAppBar from "./TopNav";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useAsync } from "react-async";
 import App from "./App";
 
-/**interface dataFace {
-	pages: any;
-	root: string;
-}*/
-
 function createPage(settings: any, pages: any) {
+	console.log(settings);
 	return (
 		<Box
 			sx={{
