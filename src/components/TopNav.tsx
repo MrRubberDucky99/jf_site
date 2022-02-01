@@ -10,11 +10,16 @@ import {
 	Button,
 	MenuItem,
 } from "@mui/material";
+import { pageRefs } from "../Interface";
 import MenuIcon from "@mui/icons-material/Menu";
 
-const pages = ["About Me", "Programming", "AVL", "Music"];
+//const pages = ["About Me", "Programming", "AVL", "Music"];
 
-const ResponsiveAppBar = () => {
+function ResponsiveAppBar(pages: Array<string>) {
+	let pageLabels: Array<string> = [];
+	for (let i = 0; i < pages.length; i++) {
+		pageLabels[i] = pages[i];
+	}
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
 		null
 	);
@@ -73,7 +78,7 @@ const ResponsiveAppBar = () => {
 								display: { xs: "block", md: "none" },
 							}}
 						>
-							{pages.map((page) => (
+							{pageLabels.map((page) => (
 								<MenuItem key={page} onClick={handleCloseNavMenu}>
 									<Typography textAlign="center" variant="h6">
 										{page}
@@ -91,7 +96,7 @@ const ResponsiveAppBar = () => {
 						Judah Fuller
 					</Typography>
 					<Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-						{pages.map((page) => (
+						{pageLabels.map((page) => (
 							<Button
 								key={page}
 								onClick={handleCloseNavMenu}
@@ -105,7 +110,7 @@ const ResponsiveAppBar = () => {
 			</Container>
 		</AppBar>
 	);
-};
+}
 export default ResponsiveAppBar;
 /**
  * sx={{

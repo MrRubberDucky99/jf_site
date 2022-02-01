@@ -6,6 +6,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, child, get } from "firebase/database";
 import CreatePage from "./components/makePage";
+import { Typography } from "@mui/material";
 //import { useAsync } from "react-async";
 
 const firebaseConfig = {
@@ -82,18 +83,19 @@ const theme = createTheme({
 function RenderSite() {
 	const [settings, setSettings] = useState({});
 	const [pages, setPages] = useState({});
-	let resolved = false;
 	useEffect(() => {
-		get(child(dbRef, `settings/`)).then((snapshot) => {
-			setSettings({ snapshot });
+		get(child(dbRef, `Settings/`)).then((snapshot) => {
+			const data = snapshot.val();
+			setSettings(data);
 		});
 	});
-	/**useEffect(() => {
-		getDocs(collection(db, "pages")).then((data) => {
+	useEffect(() => {
+		const pagesRef = ref(database, `pageRefs`);
+		get(pagesRef).then((snapshot) => {
+			const data = snapshot.val().split(",");
 			setPages(data);
 		});
-	});*/
-	console.log(settings);
+	});
 	return (
 		<ThemeProvider theme={theme}>
 			<CreatePage settings={settings} pages={pages} />
