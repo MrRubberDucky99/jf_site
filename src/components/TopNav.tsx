@@ -1,4 +1,5 @@
 import * as React from "react";
+import { FunctionComponent } from "react";
 import {
 	AppBar,
 	Box,
@@ -10,16 +11,21 @@ import {
 	Button,
 	MenuItem,
 } from "@mui/material";
-import { pageRefs } from "../Interface";
+import { navigationPages, pageNavigationInfo, pages } from "../Interface";
 import MenuIcon from "@mui/icons-material/Menu";
 
 //const pages = ["About Me", "Programming", "AVL", "Music"];
 
-function ResponsiveAppBar(pages: Array<string>) {
-	let pageLabels: Array<string> = [];
-	for (let i = 0; i < pages.length; i++) {
-		pageLabels[i] = pages[i];
-	}
+type navProps = {
+	pages: pageNavigationInfo[];
+	currentPage: number;
+};
+
+export const ResponsiveAppBar: FunctionComponent<navProps> = ({
+	pages,
+	currentPage,
+}) => {
+	const pageLabels = pages;
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
 		null
 	);
@@ -33,11 +39,11 @@ function ResponsiveAppBar(pages: Array<string>) {
 	};
 
 	return (
-		<AppBar position="static">
+		<AppBar position="static" sx={{ bgcolor: "primary.main" }}>
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
 					<Typography
-						variant="h5"
+						variant="h4"
 						noWrap
 						component="div"
 						sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
@@ -79,9 +85,9 @@ function ResponsiveAppBar(pages: Array<string>) {
 							}}
 						>
 							{pageLabels.map((page) => (
-								<MenuItem key={page} onClick={handleCloseNavMenu}>
-									<Typography textAlign="center" variant="h6">
-										{page}
+								<MenuItem key={page.address} onClick={handleCloseNavMenu}>
+									<Typography textAlign="center" variant="h5">
+										{page.displayName}
 									</Typography>
 								</MenuItem>
 							))}
@@ -95,22 +101,47 @@ function ResponsiveAppBar(pages: Array<string>) {
 					>
 						Judah Fuller
 					</Typography>
-					<Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+					<Box
+						sx={{
+							flexGrow: 1,
+							display: { xs: "none", md: "flex" },
+						}}
+					>
 						{pageLabels.map((page) => (
 							<Button
-								key={page}
+								key={page.address}
 								onClick={handleCloseNavMenu}
-								sx={{ my: 2, color: "white", display: "block" }}
+								disableElevation
+								sx={{
+									my: 2,
+									mx: 0.5,
+									color: "white",
+									display: "block",
+									bgcolor: "primary.main",
+								}}
+								variant="contained"
 							>
-								{page}
+								<Typography variant="h6">{page.displayName}</Typography>
 							</Button>
 						))}
+					</Box>
+					<Box sx={{}}>
+						<Button
+							key={pageLabels[currentPage].address}
+							onClick={handleCloseNavMenu}
+							sx={{ my: 2, color: "white", display: "block" }}
+							disableRipple
+						>
+							<Typography variant="h5">
+								{pageLabels[currentPage].displayName}
+							</Typography>
+						</Button>
 					</Box>
 				</Toolbar>
 			</Container>
 		</AppBar>
 	);
-}
+};
 export default ResponsiveAppBar;
 /**
  * sx={{

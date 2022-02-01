@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, child, get } from "firebase/database";
-import CreatePage from "./components/makePage";
-//import { useAsync } from "react-async";
+import { getDatabase, ref, onValue } from "firebase/database";
+import { CreatePage } from "./components/makePage";
+import { settings, pages } from "./Interface";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyD2-zWfHRuAeWfrLviTbD4hdG_wzGyEf24",
@@ -23,7 +23,17 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase();
 const dbRef = ref(getDatabase());
-
+let connected = false;
+const connectedRef = ref(database, ".info/connected");
+onValue(connectedRef, (snap) => {
+	if (snap.val() === true) {
+		console.log("connected");
+		connected = true;
+	} else {
+		console.log("not connected");
+		connected = false;
+	}
+});
 declare module "@mui/material/Button" {
 	interface ButtonPropsVariantOverrides {
 		dashed: true;
@@ -34,13 +44,15 @@ const theme = createTheme({
 	palette: {
 		primary: {
 			main: "#1565c0",
-			light: "#5e92f3",
+			light: "#306EFF",
 			dark: "#003c8f",
+			contrastText: "#fff",
 		},
 		secondary: {
 			main: "#4a148c",
 			light: "#7c43bd",
 			dark: "#12005e",
+			contrastText: "#fff",
 		},
 	},
 	components: {
@@ -77,37 +89,63 @@ const theme = createTheme({
 			'"Segoe UI Emoji"',
 			'"Segoe UI Symbol"',
 		].join(","),
+		h6: {
+			fontSize: "1.2rem",
+		},
 	},
 });
 
+let wait: boolean = true;
 function RenderSite() {
-	const [settings, setSettings] = useState({});
-	const pages: Array<String> = [];
-	useEffect(() => {
-		get(child(dbRef, `Settings/`)).then((snapshot) => {
-			const data = snapshot.val();
-			setSettings(data);
-		});
+	const [pages, setPages] = useState<pages>({
+		data: {
+			"Loading": { longTitle: "Loading" },
+		},
+		navigation: {
+			"loading": {
+				address: "loading",
+				displayName: "Loading",
+				hidden: false,
+				priority: 999,
+			},
+		},
 	});
-	const pagesRef = ref(database, `pageRefs`);
-	get(pagesRef).then((snapshot) => {
-		const data: Array<String> = snapshot.val().split(",");
-		for (let i = 0; i < data.length; i++) {
-			if (!pages.includes(data[i])) {
-				console.log(data[i]);
-				pages.push(data[i]);
+	const [newPages, setNewPages] = useState("");
+	const pagesRef = ref(database, `pages`);
+	onValue(pagesRef, (snapshot) => {
+		if (snapshot.exists()) {
+			const data = snapshot.val();
+			if (data.toString() !== newPages) {
+				pages.navigation = data.navigation;
+				pages.data = data.data;
+				setNewPages(data.toString());
 			}
 		}
 	});
-	return (
-		<ThemeProvider theme={theme}>
-			<CreatePage settings={settings} pages={pages} />
-		</ThemeProvider>
-	);
+	const [settings, setSettings] = useState<settings>({ root: "" });
+	const [newSettings, setNewSettings] = useState("");
+	const settingsRef = ref(database, `Settings`);
+	onValue(settingsRef, (snapshot) => {
+		if (snapshot.exists()) {
+			const data = snapshot.val();
+			if (data.toString() !== newSettings) {
+				setSettings(data);
+				//console.log(settings.root);
+				setNewSettings(data.toString());
+			}
+		}
+	});
+	console.log(pages);
+	console.log(settings);
+	return <CreatePage settings={settings} pages={pages} />;
 }
+
+//while (wait) {}
 ReactDOM.render(
 	<React.StrictMode>
-		<RenderSite />
+		<ThemeProvider theme={theme}>
+			<RenderSite />
+		</ThemeProvider>
 	</React.StrictMode>,
 	document.getElementById("root")
 );
