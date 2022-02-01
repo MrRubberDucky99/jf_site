@@ -6,7 +6,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, child, get } from "firebase/database";
 import CreatePage from "./components/makePage";
-import { Typography } from "@mui/material";
 //import { useAsync } from "react-async";
 
 const firebaseConfig = {
@@ -20,6 +19,7 @@ const firebaseConfig = {
 	appId: "1:287898296891:web:87b942162320dfc9f7321e",
 };
 
+// eslint-disable-next-line
 const app = initializeApp(firebaseConfig);
 const database = getDatabase();
 const dbRef = ref(getDatabase());
@@ -82,19 +82,22 @@ const theme = createTheme({
 
 function RenderSite() {
 	const [settings, setSettings] = useState({});
-	const [pages, setPages] = useState({});
+	const pages: Array<String> = [];
 	useEffect(() => {
 		get(child(dbRef, `Settings/`)).then((snapshot) => {
 			const data = snapshot.val();
 			setSettings(data);
 		});
 	});
-	useEffect(() => {
-		const pagesRef = ref(database, `pageRefs`);
-		get(pagesRef).then((snapshot) => {
-			const data = snapshot.val().split(",");
-			setPages(data);
-		});
+	const pagesRef = ref(database, `pageRefs`);
+	get(pagesRef).then((snapshot) => {
+		const data: Array<String> = snapshot.val().split(",");
+		for (let i = 0; i < data.length; i++) {
+			if (!pages.includes(data[i])) {
+				console.log(data[i]);
+				pages.push(data[i]);
+			}
+		}
 	});
 	return (
 		<ThemeProvider theme={theme}>
