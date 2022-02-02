@@ -14,6 +14,7 @@ const App: FunctionComponent<appProps> = (pageNav, pageData) => {
 				backgroundColor: "secondary.dark",
 				display: "flex",
 				flexDirection: "column",
+				alignItems: "center",
 				justifyContent: "space-evenly",
 				color: "secondary.contrastText",
 			}}

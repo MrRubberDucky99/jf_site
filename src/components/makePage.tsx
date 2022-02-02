@@ -51,6 +51,7 @@ export const CreatePage: FunctionComponent<pageProps> = ({
 				backgroundColor: "secondary.dark",
 				display: "flex",
 				flexDirection: "column",
+				alignItems: "center",
 				justifyContent: "center",
 				color: "secondary.contrastText",
 			}}
