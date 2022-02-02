@@ -1,6 +1,5 @@
 import React from "react";
 import { FunctionComponent } from "react";
-import { Box } from "@mui/material";
 import ResponsiveAppBar from "./TopNav";
 import { settings, pages } from "../Interface";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -65,16 +64,3 @@ export const CreatePage: FunctionComponent<pageProps> = ({
 		</BrowserRouter>
 	);
 };
-
-/**
- *<Box
-			sx={{
-				backgroundColor: "secondary.dark",
-				display: "flex",
-				flexDirection: "column",
-				alignItems: "center",
-				justifyContent: "center",
-				color: "secondary.contrastText",
-			}}
-		></Box>
- */

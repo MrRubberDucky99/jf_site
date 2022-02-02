@@ -10,7 +10,7 @@ export function ConstructionPage() {
 				display: "flex",
 				flexDirection: "column",
 				alignItems: "center",
-				minHeight: "92vh",
+				minHeight: "93vh",
 				justifyContent: "space-evenly",
 				color: "secondary.contrastText",
 			}}
@@ -22,21 +22,3 @@ export function ConstructionPage() {
 		</Box>
 	);
 }
-
-/**
- * 
- * 
-				justifyContent: "left",
-				alignItems: "left",
- * 
- * Building Page
- * <div className="App">
-			<header className="App-header">
-				<ConstructionIcon color="primary" sx={{ fontSize: 128 }} />
-				<p>
-					I need to edit <code>src/App.tsx</code> and get my website working.
-					BRB!
-				</p>
-			</header>
-		</div>
- */

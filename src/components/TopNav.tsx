@@ -11,12 +11,9 @@ import {
 	Button,
 	MenuItem,
 } from "@mui/material";
-import { navigationPages, pageNavigationInfo, pages } from "../Interface";
+import { pageNavigationInfo } from "../Interface";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
-//const pages = ["About Me", "Programming", "AVL", "Music"];
 
 type navProps = {
 	pages: pageNavigationInfo[];
@@ -155,8 +152,3 @@ export const ResponsiveAppBar: FunctionComponent<navProps> = ({
 	);
 };
 export default ResponsiveAppBar;
-/**
- * sx={{
-										color: "palette.info.dark",
-									}}
- */

@@ -12,12 +12,3 @@ const App: FunctionComponent<appProps> = (pageNav, pageData) => {
 };
 
 export default App;
-/**
- * 
- * 
-				justifyContent: "left",
-				alignItems: "left",
- * 
- * Building Page
- * 
- */
