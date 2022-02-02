@@ -15,6 +15,7 @@ export const CreatePage: FunctionComponent<pageProps> = ({
 	pages,
 }) => {
 	const pageLbls1 = Object.values(pages.navigation);
+	const pageData1 = Object.values(pages.data);
 	const pageRoutes = [];
 	let rootAddr = 0;
 	for (let i = 0; i < pageLbls1.length; i++) {
@@ -27,7 +28,7 @@ export const CreatePage: FunctionComponent<pageProps> = ({
 		}
 		pageRoutes.push({
 			path: "/" + pageLbls1[i].address,
-			element: <App pageNav={pages.navigation[i]} pageData={pages.data[i]} />,
+			element: <App pageNav={pageLbls1[i]} pageData={pageData1[i]} />,
 		});
 	}
 	const pageLabels = pageLbls1.sort((n1, n2) => {
@@ -44,6 +45,7 @@ export const CreatePage: FunctionComponent<pageProps> = ({
 			pageLabels.pop();
 		}
 	}
+	console.log(pageData1[rootAddr]);
 	return (
 		<BrowserRouter>
 			<ResponsiveAppBar pages={pageLabels} currentPage={0} />
@@ -51,10 +53,7 @@ export const CreatePage: FunctionComponent<pageProps> = ({
 				<Route
 					index
 					element={
-						<App
-							pageNav={pages.navigation[rootAddr]}
-							pageData={pages.data[rootAddr]}
-						/>
+						<App pageNav={pageLbls1[rootAddr]} pageData={pageData1[rootAddr]} />
 					}
 				/>
 				{pageRoutes.map((pageRoute) => (

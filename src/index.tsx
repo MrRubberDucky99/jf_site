@@ -102,7 +102,7 @@ let wait: boolean = true;
 function RenderSite() {
 	const [pages, setPages] = useState<pages>({
 		data: {
-			"Loading": { longTitle: "Loading" },
+			"Loading": { longTitle: "Loading", construction: true },
 		},
 		navigation: {
 			"loading": {
@@ -115,6 +115,9 @@ function RenderSite() {
 	});
 	const [newPages, setNewPages] = useState("");
 	const pagesRef = ref(database, `pages`);
+	const [settings, setSettings] = useState<settings>({ root: "" });
+	const [newSettings, setNewSettings] = useState("");
+	const settingsRef = ref(database, `Settings`);
 	onValue(pagesRef, (snapshot) => {
 		if (snapshot.exists()) {
 			const data = snapshot.val();
@@ -125,21 +128,18 @@ function RenderSite() {
 			}
 		}
 	});
-	const [settings, setSettings] = useState<settings>({ root: "" });
-	const [newSettings, setNewSettings] = useState("");
-	const settingsRef = ref(database, `Settings`);
 	onValue(settingsRef, (snapshot) => {
 		if (snapshot.exists()) {
 			const data = snapshot.val();
 			if (data.toString() !== newSettings) {
 				setSettings(data);
-				//console.log(settings.root);
 				setNewSettings(data.toString());
 			}
 		}
 	});
-	console.log(pages);
-	console.log(settings);
+	//console.log(pages);
+	//console.log(settings);
+
 	return <CreatePage settings={settings} pages={pages} />;
 }
 

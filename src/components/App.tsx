@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState, useEffect } from "react";
 import { pageNavigationInfo, page } from "../Interface";
 import { ConstructionPage } from "./Construction";
 type appProps = {

@@ -1,5 +1,6 @@
 export interface page {
 	longTitle: string;
+	construction: boolean;
 }
 
 export interface pages {
