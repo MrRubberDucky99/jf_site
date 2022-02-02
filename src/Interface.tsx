@@ -23,11 +23,10 @@ export interface pageNavigationInfo {
 	priority: number;
 }
 
-export interface settings {
-	root: string;
+export interface experience {
+	[key: string]: experienceTime;
 }
 
-export interface settingsState {
-	settings?: settings;
-	setSettings: (settings: settings) => void;
+export interface experienceTime {
+	[key: string]: number;
 }

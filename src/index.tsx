@@ -3,37 +3,9 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue } from "firebase/database";
-import { CreatePage } from "./components/makePage";
-import { settings, pages } from "./Interface";
-
-const firebaseConfig = {
-	apiKey: "AIzaSyD2-zWfHRuAeWfrLviTbD4hdG_wzGyEf24",
-	authDomain: "jf-site-77189.firebaseapp.com",
-	databaseURL:
-		"https://jf-site-77189-default-rtdb.europe-west1.firebasedatabase.app",
-	projectId: "jf-site-77189",
-	storageBucket: "jf-site-77189.appspot.com",
-	messagingSenderId: "287898296891",
-	appId: "1:287898296891:web:87b942162320dfc9f7321e",
-};
-
-// eslint-disable-next-line
-const app = initializeApp(firebaseConfig);
-const database = getDatabase();
-const dbRef = ref(getDatabase());
-let connected = false;
-const connectedRef = ref(database, ".info/connected");
-onValue(connectedRef, (snap) => {
-	if (snap.val() === true) {
-		console.log("connected");
-		connected = true;
-	} else {
-		console.log("not connected");
-		connected = false;
-	}
-});
+import { experience, pages } from "./Interface";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ResponsiveAppBar from "./components/TopNav";
 declare module "@mui/material/Button" {
 	interface ButtonPropsVariantOverrides {
 		dashed: true;
@@ -100,54 +72,31 @@ const theme = createTheme({
 
 let wait: boolean = true;
 function RenderSite() {
-	const [pages, setPages] = useState<pages>({
-		data: {
-			"Loading": { longTitle: "Loading", construction: true },
-		},
-		navigation: {
-			"loading": {
-				address: "loading",
-				displayName: "Loading",
-				hidden: false,
-				priority: 999,
-			},
-		},
-	});
-	const [newPages, setNewPages] = useState("");
-	const pagesRef = ref(database, `pages`);
-	const [settings, setSettings] = useState<settings>({ root: "" });
-	const [newSettings, setNewSettings] = useState("");
-	const settingsRef = ref(database, `Settings`);
-	onValue(pagesRef, (snapshot) => {
-		if (snapshot.exists()) {
-			const data = snapshot.val();
-			if (data.toString() !== newPages) {
-				pages.navigation = data.navigation;
-				pages.data = data.data;
-				setNewPages(data.toString());
-			}
-		}
-	});
-	onValue(settingsRef, (snapshot) => {
-		if (snapshot.exists()) {
-			const data = snapshot.val();
-			if (data.toString() !== newSettings) {
-				setSettings(data);
-				setNewSettings(data.toString());
-			}
-		}
-	});
-	//console.log(pages);
-	//console.log(settings);
-
-	return <CreatePage settings={settings} pages={pages} />;
+	const [expeirence, setexpeirence] = useState<experience>({});
+	return <Site settings={experience} pages={pages} />;
 }
 
 //while (wait) {}
 ReactDOM.render(
 	<React.StrictMode>
 		<ThemeProvider theme={theme}>
-			<RenderSite />
+			<BrowserRouter>
+				<ResponsiveAppBar pages={pageLabels} currentPage={0} />
+				<Routes>
+					<Route
+						index
+						element={
+							<App
+								pageNav={pageLbls1[rootAddr]}
+								pageData={pageData1[rootAddr]}
+							/>
+						}
+					/>
+					{pageRoutes.map((pageRoute) => (
+						<Route path={pageRoute.path} element={pageRoute.element} />
+					))}
+				</Routes>
+			</BrowserRouter>
 		</ThemeProvider>
 	</React.StrictMode>,
 	document.getElementById("root")
