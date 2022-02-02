@@ -16,11 +16,20 @@ export const CreatePage: FunctionComponent<pageProps> = ({
 	pages,
 }) => {
 	const pageLbls1 = Object.values(pages.navigation);
+	const pageRoutes = [];
 	let rootAddr = 0;
 	for (let i = 0; i < pageLbls1.length; i++) {
+		if (pageLbls1[i].address.toLowerCase() === settings.root.toLowerCase()) {
+			rootAddr = i;
+			pageLbls1[i].address = "";
+		}
 		if (pageLbls1[i].hidden) {
 			pageLbls1[i].priority = 69420;
 		}
+		pageRoutes.push({
+			path: "/" + pageLbls1[i].address,
+			element: <App pageNav={pages.navigation[i]} pageData={pages.data[i]} />,
+		});
 	}
 	const pageLabels = pageLbls1.sort((n1, n2) => {
 		if (n1.priority > n2.priority) {
@@ -36,11 +45,6 @@ export const CreatePage: FunctionComponent<pageProps> = ({
 			pageLabels.pop();
 		}
 	}
-	for (let i = 0; i < pageLbls1.length; i++) {
-		if (pageLbls1[i].address === settings.root) {
-			rootAddr = i;
-		}
-	}
 	return (
 		<Box
 			sx={{
@@ -51,11 +55,21 @@ export const CreatePage: FunctionComponent<pageProps> = ({
 				color: "secondary.contrastText",
 			}}
 		>
-			<ResponsiveAppBar pages={pageLabels} currentPage={0} />
 			<BrowserRouter>
+				<ResponsiveAppBar pages={pageLabels} currentPage={0} />
 				<Routes>
-					<Route index element={<App page={pages.navigation[rootAddr]} />} />
-					<Route path="/home" element={<h1>Boo!</h1>} />
+					<Route
+						index
+						element={
+							<App
+								pageNav={pages.navigation[rootAddr]}
+								pageData={pages.data[rootAddr]}
+							/>
+						}
+					/>
+					{pageRoutes.map((pageRoute) => (
+						<Route path={pageRoute.path} element={pageRoute.element} />
+					))}
 				</Routes>
 			</BrowserRouter>
 		</Box>

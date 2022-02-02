@@ -1,26 +1,31 @@
-import React from "react";
-//import "./App.css";
-//import ConstructionIcon from "@mui/icons-material/Construction";
+import React, { FunctionComponent } from "react";
+import { pageNavigationInfo, page } from "../Interface";
+import { Box } from "@mui/material";
 import { Construction } from "@mui/icons-material";
-// background-color: #282c34;
+type appProps = {
+	pageNav: pageNavigationInfo;
+	pageData: page;
+};
 
-interface element {}
-
-function App(pageIn: any) {
-	console.log("Page In: " + pageIn);
+const App: FunctionComponent<appProps> = (pageNav, pageData) => {
 	let page = (
-		<div className="App">
-			<header className="App-header">
-				<Construction color="primary" sx={{ fontSize: 128 }} />
-				<p>
-					I need to edit <code>src/App.tsx</code> and get my website working.
-					BRB!
-				</p>
-			</header>
-		</div>
+		<Box
+			sx={{
+				backgroundColor: "secondary.dark",
+				display: "flex",
+				flexDirection: "column",
+				justifyContent: "space-evenly",
+				color: "secondary.contrastText",
+			}}
+		>
+			<Construction color="primary" sx={{ fontSize: 128 }} />
+			<p>
+				I need to edit <code>src/App.tsx</code> and get my website working. BRB!
+			</p>
+		</Box>
 	);
 	return page;
-}
+};
 
 export default App;
 /**

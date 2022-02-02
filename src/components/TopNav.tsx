@@ -13,6 +13,8 @@ import {
 } from "@mui/material";
 import { navigationPages, pageNavigationInfo, pages } from "../Interface";
 import MenuIcon from "@mui/icons-material/Menu";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 //const pages = ["About Me", "Programming", "AVL", "Music"];
 
@@ -26,6 +28,8 @@ export const ResponsiveAppBar: FunctionComponent<navProps> = ({
 	currentPage,
 }) => {
 	const pageLabels = pages;
+
+	const navigate = useNavigate();
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
 		null
 	);
@@ -36,6 +40,11 @@ export const ResponsiveAppBar: FunctionComponent<navProps> = ({
 
 	const handleCloseNavMenu = () => {
 		setAnchorElNav(null);
+	};
+
+	const linkClick = (address: string) => {
+		handleCloseNavMenu();
+		navigate("/" + address);
 	};
 
 	return (
@@ -85,7 +94,10 @@ export const ResponsiveAppBar: FunctionComponent<navProps> = ({
 							}}
 						>
 							{pageLabels.map((page) => (
-								<MenuItem key={page.address} onClick={handleCloseNavMenu}>
+								<MenuItem
+									key={page.address}
+									onClick={() => linkClick(page.address)}
+								>
 									<Typography textAlign="center" variant="h5">
 										{page.displayName}
 									</Typography>
@@ -110,7 +122,7 @@ export const ResponsiveAppBar: FunctionComponent<navProps> = ({
 						{pageLabels.map((page) => (
 							<Button
 								key={page.address}
-								onClick={handleCloseNavMenu}
+								onClick={() => linkClick(page.address)}
 								disableElevation
 								sx={{
 									my: 2,
