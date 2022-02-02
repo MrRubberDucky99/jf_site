@@ -92,6 +92,9 @@ const theme = createTheme({
 		h6: {
 			fontSize: "1.2rem",
 		},
+		body2: {
+			fontSize: "2rem",
+		},
 	},
 });
 

@@ -46,7 +46,28 @@ export const CreatePage: FunctionComponent<pageProps> = ({
 		}
 	}
 	return (
-		<Box
+		<BrowserRouter>
+			<ResponsiveAppBar pages={pageLabels} currentPage={0} />
+			<Routes>
+				<Route
+					index
+					element={
+						<App
+							pageNav={pages.navigation[rootAddr]}
+							pageData={pages.data[rootAddr]}
+						/>
+					}
+				/>
+				{pageRoutes.map((pageRoute) => (
+					<Route path={pageRoute.path} element={pageRoute.element} />
+				))}
+			</Routes>
+		</BrowserRouter>
+	);
+};
+
+/**
+ *<Box
 			sx={{
 				backgroundColor: "secondary.dark",
 				display: "flex",
@@ -55,28 +76,5 @@ export const CreatePage: FunctionComponent<pageProps> = ({
 				justifyContent: "center",
 				color: "secondary.contrastText",
 			}}
-		>
-			<BrowserRouter>
-				<ResponsiveAppBar pages={pageLabels} currentPage={0} />
-				<Routes>
-					<Route
-						index
-						element={
-							<App
-								pageNav={pages.navigation[rootAddr]}
-								pageData={pages.data[rootAddr]}
-							/>
-						}
-					/>
-					{pageRoutes.map((pageRoute) => (
-						<Route path={pageRoute.path} element={pageRoute.element} />
-					))}
-				</Routes>
-			</BrowserRouter>
-		</Box>
-	);
-};
-
-/**
- *
+		></Box>
  */
