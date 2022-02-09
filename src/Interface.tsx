@@ -1,26 +1,14 @@
-export interface page {
-	longTitle: string;
-	construction: boolean;
+import { ReactElement } from "react";
+
+export interface parentData {
+	w: number;
+	h: number;
 }
 
 export interface pages {
-	navigation: navigationPages;
-	data: pagesList;
-}
-
-export interface pagesList {
-	[key: string]: page;
-}
-
-export interface navigationPages {
-	[key: string]: pageNavigationInfo;
-}
-
-export interface pageNavigationInfo {
-	address: string;
-	displayName: string;
-	hidden: boolean;
-	priority: number;
+	labels: string[];
+	pageNum: number[];
+	element: ReactElement<any, any>[];
 }
 
 export interface experience {

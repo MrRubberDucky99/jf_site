@@ -7,11 +7,22 @@ import {
 	info,
 } from "./interface";
 import { draw } from "./draw";
+import { parentData } from "../../Interface";
 import { keyDownHandle, keyUpHandle } from "./input";
+import { FunctionComponent } from "react";
+
+export function Canvas() {
+	return (
+		<div>
+			<canvas id="gameCanvas" width={window.innerWidth - 100} height={400} />
+		</div>
+	);
+}
 
 export function Game() {
+	console.log("Gaming");
 	const canvas: HTMLCanvasElement = document.getElementById(
-		"myCanvas"
+		"gameCanvas"
 	) as HTMLCanvasElement;
 	const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
 	const ballInfo: ballInfo = {

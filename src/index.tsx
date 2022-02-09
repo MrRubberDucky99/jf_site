@@ -6,6 +6,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { experience, pages } from "./Interface";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ResponsiveAppBar from "./components/TopNav";
+import { Site } from "./components/App";
+import { Game } from "./components/breakout/gameLogic";
+
 declare module "@mui/material/Button" {
 	interface ButtonPropsVariantOverrides {
 		dashed: true;
@@ -70,30 +73,27 @@ const theme = createTheme({
 	},
 });
 
+const Pages: pages = {
+	labels: ["Home", "AVL"],
+	pageNum: [0, 1],
+	element: [<Site />],
+};
+
 let wait: boolean = true;
-function RenderSite() {
-	const [expeirence, setexpeirence] = useState<experience>({});
-	return <Site settings={experience} pages={pages} />;
-}
 
 //while (wait) {}
 ReactDOM.render(
 	<React.StrictMode>
 		<ThemeProvider theme={theme}>
 			<BrowserRouter>
-				<ResponsiveAppBar pages={pageLabels} currentPage={0} />
+				<ResponsiveAppBar pageLabels={Pages.labels} currentPage={0} />
 				<Routes>
-					<Route
-						index
-						element={
-							<App
-								pageNav={pageLbls1[rootAddr]}
-								pageData={pageData1[rootAddr]}
-							/>
-						}
-					/>
-					{pageRoutes.map((pageRoute) => (
-						<Route path={pageRoute.path} element={pageRoute.element} />
+					<Route index element={<Site />} />
+					{Pages.pageNum.map((num) => (
+						<Route
+							path={Pages.labels[num].toLowerCase()}
+							element={Pages.element[num]}
+						/>
 					))}
 				</Routes>
 			</BrowserRouter>
@@ -101,6 +101,12 @@ ReactDOM.render(
 	</React.StrictMode>,
 	document.getElementById("root")
 );
+Game();
+// pageNav={pageLbls1[rootAddr]}
+// pageData={pageData1[rootAddr]}
+/**
+ *
+ */
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

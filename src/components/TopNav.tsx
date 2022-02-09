@@ -11,21 +11,19 @@ import {
 	Button,
 	MenuItem,
 } from "@mui/material";
-import { pageNavigationInfo } from "../Interface";
+import {} from "../Interface";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
 
 type navProps = {
-	pages: pageNavigationInfo[];
+	pageLabels: string[];
 	currentPage: number;
 };
 
 export const ResponsiveAppBar: FunctionComponent<navProps> = ({
-	pages,
+	pageLabels,
 	currentPage,
 }) => {
-	const pageLabels = pages;
-
 	const navigate = useNavigate();
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
 		null
@@ -92,11 +90,11 @@ export const ResponsiveAppBar: FunctionComponent<navProps> = ({
 						>
 							{pageLabels.map((page) => (
 								<MenuItem
-									key={page.address}
-									onClick={() => linkClick(page.address)}
+									key={page.toLowerCase()}
+									onClick={() => linkClick(page.toLowerCase())}
 								>
 									<Typography textAlign="center" variant="h5">
-										{page.displayName}
+										{page}
 									</Typography>
 								</MenuItem>
 							))}
@@ -118,8 +116,8 @@ export const ResponsiveAppBar: FunctionComponent<navProps> = ({
 					>
 						{pageLabels.map((page) => (
 							<Button
-								key={page.address}
-								onClick={() => linkClick(page.address)}
+								key={page.toLowerCase()}
+								onClick={() => linkClick(page.toLowerCase())}
 								disableElevation
 								sx={{
 									my: 2,
@@ -130,20 +128,18 @@ export const ResponsiveAppBar: FunctionComponent<navProps> = ({
 								}}
 								variant="contained"
 							>
-								<Typography variant="h6">{page.displayName}</Typography>
+								<Typography variant="h6">{page}</Typography>
 							</Button>
 						))}
 					</Box>
 					<Box sx={{}}>
 						<Button
-							key={pageLabels[currentPage].address}
+							key={pageLabels[currentPage].toLowerCase()}
 							onClick={handleCloseNavMenu}
 							sx={{ my: 2, color: "white", display: "block" }}
 							disableRipple
 						>
-							<Typography variant="h5">
-								{pageLabels[currentPage].displayName}
-							</Typography>
+							<Typography variant="h5">{pageLabels[currentPage]}</Typography>
 						</Button>
 					</Box>
 				</Toolbar>
