@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ResponsiveAppBar from "./components/TopNav";
 import { Site } from "./components/App";
 import { Game } from "./components/breakout/gameLogic";
+import { Home } from "./components/pages/home";
 
 declare module "@mui/material/Button" {
 	interface ButtonPropsVariantOverrides {
@@ -76,7 +77,7 @@ const theme = createTheme({
 const Pages: pages = {
 	labels: ["Home", "AVL"],
 	pageNum: [0, 1],
-	element: [<Site />],
+	element: [<Home />, <Site />],
 };
 
 let wait: boolean = true;
@@ -88,7 +89,7 @@ ReactDOM.render(
 			<BrowserRouter>
 				<ResponsiveAppBar pageLabels={Pages.labels} currentPage={0} />
 				<Routes>
-					<Route index element={<Site />} />
+					<Route index element={Pages.element[0]} />
 					{Pages.pageNum.map((num) => (
 						<Route
 							path={Pages.labels[num].toLowerCase()}
