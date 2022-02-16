@@ -1,11 +1,4 @@
-import React, {
-	FunctionComponent,
-	useState,
-	useEffect,
-	useCallback,
-} from "react";
-import { Game, Canvas } from "./breakout/gameLogic";
-import { parentData } from "../Interface";
+import React, { FunctionComponent } from "react";
 import { Construction } from "@mui/icons-material";
 import { Typography, Box } from "@mui/material";
 
@@ -36,7 +29,6 @@ export function ConstructionPage() {
 				I need to edit <code>src/App.tsx</code> and get my website working. Play
 				Breakout Whilst you wait!
 			</Typography>
-			<Canvas />
 		</Box>
 	);
 }

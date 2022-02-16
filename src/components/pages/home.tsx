@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { ArrowUpward } from "@mui/icons-material";
 import { Typography, Box, Container } from "@mui/material";
-import { borderRadius } from "@mui/system";
 
 export const Home: FunctionComponent = () => {
 	let page = (

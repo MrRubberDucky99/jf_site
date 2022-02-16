@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { experience, pages } from "./Interface";
+import { pages } from "./Interface";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ResponsiveAppBar from "./components/TopNav";
 import { Site } from "./components/App";
-import { Game } from "./components/breakout/gameLogic";
+import { Canvas, Game } from "./components/breakout/gameLogic";
 import { Home } from "./components/pages/home";
 
 declare module "@mui/material/Button" {
@@ -97,6 +97,7 @@ ReactDOM.render(
 						/>
 					))}
 				</Routes>
+				<Canvas />
 			</BrowserRouter>
 		</ThemeProvider>
 	</React.StrictMode>,
