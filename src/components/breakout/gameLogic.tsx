@@ -1,15 +1,9 @@
-import * as React from "react";
-import {
-	canvasInfo,
-	ballInfo,
-	paddleInfo,
-	bricksInfo,
-	info,
-} from "./interface";
+import React from "react";
+import { canvasInfo, ballInfo, paddleInfo, info } from "./interface";
 import { draw } from "./draw";
-import { parentData } from "../../Interface";
+//import { parentData } from "../../Interface";
 import { keyDownHandle, keyUpHandle } from "./input";
-import { FunctionComponent } from "react";
+//import { FunctionComponent } from "react";
 
 export function Canvas() {
 	return (

@@ -1,4 +1,4 @@
-import React, from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
@@ -9,6 +9,7 @@ import ResponsiveAppBar from "./components/TopNav";
 import { Site } from "./components/App";
 import { Canvas, Game } from "./components/breakout/gameLogic";
 import { Home } from "./components/pages/home";
+import { Box } from "@mui/material";
 
 declare module "@mui/material/Button" {
 	interface ButtonPropsVariantOverrides {
@@ -80,24 +81,32 @@ const Pages: pages = {
 	element: [<Home />, <Site />],
 };
 
-let wait: boolean = true;
-
-//while (wait) {}
 ReactDOM.render(
 	<React.StrictMode>
 		<ThemeProvider theme={theme}>
 			<BrowserRouter>
-				<ResponsiveAppBar pageLabels={Pages.labels} currentPage={0} />
-				<Routes>
-					<Route index element={Pages.element[0]} />
-					{Pages.pageNum.map((num) => (
-						<Route
-							path={Pages.labels[num].toLowerCase()}
-							element={Pages.element[num]}
-						/>
-					))}
-				</Routes>
-				<Canvas />
+				<Box
+					sx={{
+						backgroundColor: "secondary.dark",
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+						justifyContent: "space-evenly",
+						color: "secondary.contrastText",
+					}}
+				>
+					<ResponsiveAppBar pageLabels={Pages.labels} currentPage={0} />
+					<Routes>
+						<Route index element={Pages.element[0]} />
+						{Pages.pageNum.map((num) => (
+							<Route
+								path={Pages.labels[num].toLowerCase()}
+								element={Pages.element[num]}
+							/>
+						))}
+					</Routes>
+					<Canvas />
+				</Box>
 			</BrowserRouter>
 		</ThemeProvider>
 	</React.StrictMode>,

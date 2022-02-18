@@ -43,7 +43,7 @@ export const ResponsiveAppBar: FunctionComponent<navProps> = ({
 	};
 
 	return (
-		<AppBar position="static" sx={{ bgcolor: "primary.main" }}>
+		<AppBar position="sticky" sx={{ bgcolor: "primary.main" }}>
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
 					<Typography
@@ -63,7 +63,6 @@ export const ResponsiveAppBar: FunctionComponent<navProps> = ({
 					>
 						<IconButton
 							size="large"
-							aria-label="account of current user"
 							aria-controls="menu-appbar"
 							aria-haspopup="true"
 							onClick={handleOpenNavMenu}
