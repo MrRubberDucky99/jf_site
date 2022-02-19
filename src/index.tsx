@@ -6,7 +6,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { pages } from "./Interface";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ResponsiveAppBar from "./components/TopNav";
-import { Canvas, Game } from "./components/breakout/gameLogic";
+//import { Canvas, Game } from "./components/breakout/gameLogic";
 import { Home } from "./components/pages/home";
 import { Box } from "@mui/material";
 
