@@ -76,9 +76,9 @@ const theme = createTheme({
 });
 
 const Pages: pages = {
-	labels: ["Home", "AVL"],
-	pageNum: [0, 1],
-	element: [<Home />, <Site />],
+	labels: ["Home"],
+	pageNum: [0],
+	element: [<Home />],
 };
 
 ReactDOM.render(

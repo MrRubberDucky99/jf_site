@@ -72,7 +72,9 @@ export const Home: FunctionComponent = () => {
 					}}
 				/>
 			</Container>
-			<Container sx={{ display: { sm: "none", md: "none", lg: "block" } }}>
+			<Container
+				sx={{ display: { xs: "none", sm: "none", md: "none", lg: "block" } }}
+			>
 				<Typography
 					align="left"
 					variant="h4"
@@ -107,7 +109,9 @@ export const Home: FunctionComponent = () => {
 					Music Technology, Maths and computer science.
 				</Typography>
 			</Container>
-			<Container sx={{ display: { sm: "none", md: "block", lg: "none" } }}>
+			<Container
+				sx={{ display: { xs: "none", sm: "none", md: "block", lg: "none" } }}
+			>
 				<Typography
 					align="left"
 					variant="h4"
@@ -149,7 +153,7 @@ export const Home: FunctionComponent = () => {
 					top: "100px",
 					left: "20%",
 					padding: "10px",
-					display: { xs: "none", sm: "block", md: "none" },
+					display: { xs: "block", sm: "block", md: "none" },
 				}}
 			>
 				<Container
@@ -184,7 +188,7 @@ export const Home: FunctionComponent = () => {
 					}}
 				/>
 			</Container>
-			<Container sx={{ display: { sm: "block", md: "none" } }}>
+			<Container sx={{ display: { xs: "block", sm: "block", md: "none" } }}>
 				<Typography
 					align="center"
 					variant="h4"
