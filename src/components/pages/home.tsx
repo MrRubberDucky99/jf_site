@@ -25,7 +25,7 @@ export const Home: FunctionComponent = () => {
 				display: "flex",
 				flexDirection: "column",
 				flexWrap: "wrap",
-				minHeight: "80vh",
+				minHeight: "93vh",
 				justifyContent: "space-between",
 				color: "secondary.contrastText",
 			}}
