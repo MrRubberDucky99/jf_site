@@ -104,14 +104,14 @@ ReactDOM.render(
 							/>
 						))}
 					</Routes>
-					<Canvas />
 				</Box>
 			</BrowserRouter>
 		</ThemeProvider>
 	</React.StrictMode>,
 	document.getElementById("root")
 );
-Game();
+//Game();
+//<Canvas />
 // pageNav={pageLbls1[rootAddr]}
 // pageData={pageData1[rootAddr]}
 /**
