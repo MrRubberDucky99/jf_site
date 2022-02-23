@@ -27,7 +27,13 @@ export interface bricksInfo {
 	h: number;
 	p: number;
 	offT: number;
-	offB: number;
+	offL: number;
+}
+
+export interface bricks {
+	x: number;
+	y: number;
+	status: number;
 }
 
 export interface info {
@@ -36,6 +42,7 @@ export interface info {
 	ball: ballInfo;
 	//ballBack: ballInfo
 	paddle: paddleInfo;
-	//bricks: bricksInfo
+	bricks: bricks[][];
+	bricksInfo: bricksInfo;
 	interval?: any;
 }

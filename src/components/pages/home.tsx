@@ -73,12 +73,12 @@ export const Home: FunctionComponent = () => {
 				/>
 			</Container>
 			<Container
-				sx={{ display: { xs: "none", sm: "none", md: "none", lg: "block" } }}
+				sx={{ display: { xs: "none", sm: "none", md: "block", lg: "block" } }}
 			>
 				<Typography
 					align="left"
 					variant="h4"
-					sx={{ position: "relative", left: "125px", top: "60px" }}
+					sx={{ position: "relative", left: "300px", top: "60px" }}
 				>
 					This is me.
 				</Typography>
@@ -86,44 +86,7 @@ export const Home: FunctionComponent = () => {
 					align="left"
 					sx={{
 						position: "relative",
-						left: "150px",
-						top: "80px",
-						maxWidth: "60vw",
-					}}
-					variant="body1"
-				>
-					I'm a {DateDiff.inDays(d1, d2)} year old guy from the south east of
-					england. I'm an intermediate guitar player that plays lead guitar in a
-					church youth band{" "}
-					<a href="https://www.arunchurch.com/come-to-church/youth">
-						(Arun Youth)
-					</a>
-					. <br />I also volunteer with the same church helping with{" "}
-					<a href="/AVL"> Sound, Video and Lighting.</a>
-					<br />I am a (mostly) self taught programmer, working on small
-					projects like a{" "}
-					<a href="https://github.com/MrRubberDucky99/Midi-Pi">
-						Pico Pi Midi Foot Controller
-					</a>
-					<br /> Currently, I go to college in brighton, where I am studying
-					Music Technology, Maths and computer science.
-				</Typography>
-			</Container>
-			<Container
-				sx={{ display: { xs: "none", sm: "none", md: "block", lg: "none" } }}
-			>
-				<Typography
-					align="left"
-					variant="h4"
-					sx={{ position: "relative", left: "125px", top: "60px" }}
-				>
-					This is me.
-				</Typography>
-				<Typography
-					align="left"
-					sx={{
-						position: "relative",
-						left: "150px",
+						left: "350px",
 						top: "80px",
 						maxWidth: "50vw",
 					}}

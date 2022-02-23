@@ -1,5 +1,12 @@
 //import * as React from 'react'
-import { canvasInfo, ballInfo, paddleInfo, info } from "./interface";
+import {
+	canvasInfo,
+	ballInfo,
+	paddleInfo,
+	info,
+	bricks,
+	bricksInfo,
+} from "./interface";
 import { pressed } from "./input";
 
 export function draw(info: info) {
@@ -7,6 +14,8 @@ export function draw(info: info) {
 	const canvas = info.canvas;
 	const paddle = info.paddle;
 	const ball = info.ball;
+	const bricks = info.bricks;
+	const bricksInfo = info.bricksInfo;
 	const ballBack: ballInfo = {
 		r: 10,
 		x: canvas.width / 2,
@@ -15,6 +24,7 @@ export function draw(info: info) {
 		dy: -2,
 	};
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	drawBricks(ctx, bricks, bricksInfo);
 	drawPaddle(ctx, paddle, canvas);
 	drawBall(ctx, ball, canvas);
 	if (ball.y + ball.dy < ball.r) {
@@ -24,8 +34,8 @@ export function draw(info: info) {
 			ball.dy = -ball.dy;
 		} else {
 			info.ball = ballBack;
-			//alert("GAME OVER");
-			//document.location.reload();
+			alert("GAME OVER");
+			document.location.reload();
 			clearInterval(info.interval);
 		}
 	}
@@ -67,6 +77,44 @@ function drawPaddle(
 		paddle.x -= 4;
 		if (paddle.x < 0) {
 			paddle.x = 0;
+		}
+	}
+}
+
+function drawBricks(
+	ctx: CanvasRenderingContext2D,
+	bricks: bricks[][],
+	info: bricksInfo
+) {
+	for (var c = 0; c < info.cols; c++) {
+		for (var r = 0; r < info.rows; r++) {
+			bricks[c][r].x = c * (info.w + info.p) + info.offL;
+			bricks[c][r].y = r * (info.h + info.p) + info.offT;
+			ctx.beginPath();
+			ctx.rect(bricks[c][r].x, bricks[c][r].y, info.w, info.h);
+			ctx.fillStyle = "#0095DD";
+			ctx.fill();
+			ctx.closePath();
+		}
+	}
+}
+
+function collisionDetection(
+	bricks: bricks[][],
+	info: bricksInfo,
+	ball: ballInfo
+) {
+	for (var c = 0; c < info.cols; c++) {
+		for (var r = 0; r < info.rows; r++) {
+			var b = bricks[c][r];
+			if (
+				ball.x > b.x &&
+				ball.x < b.x + info.w &&
+				ball.y > b.y &&
+				ball.y < b.y + info.h
+			) {
+				ball.dy = -ball.dy;
+			}
 		}
 	}
 }

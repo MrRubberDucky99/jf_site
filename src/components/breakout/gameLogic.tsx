@@ -1,5 +1,12 @@
 import React from "react";
-import { canvasInfo, ballInfo, paddleInfo, info } from "./interface";
+import {
+	canvasInfo,
+	ballInfo,
+	paddleInfo,
+	info,
+	bricksInfo,
+	bricks,
+} from "./interface";
 import { draw } from "./draw";
 //import { parentData } from "../../Interface";
 import { keyDownHandle, keyUpHandle } from "./input";
@@ -8,12 +15,17 @@ import { keyDownHandle, keyUpHandle } from "./input";
 export function Canvas() {
 	return (
 		<div>
-			<canvas id="gameCanvas" width={window.innerWidth - 100} height={400} />
+			<canvas
+				id="gameCanvas"
+				width={window.innerWidth}
+				height={window.innerHeight - 200}
+				style={{ minHeight: 400, maxHeight: 1600 }}
+			/>
 		</div>
 	);
 }
 
-export function Game() {
+export function game() {
 	console.log("Gaming");
 	const canvas: HTMLCanvasElement = document.getElementById(
 		"gameCanvas"
@@ -38,14 +50,28 @@ export function Game() {
 	};
 	paddleInfo.x = (canvas.width - paddleInfo.w) / 2;
 	paddleInfo.y = canvas.height - paddleInfo.h;
-	//const bricks: bricksInfo = {
-
-	//}
+	const bricksInfo: bricksInfo = {
+		rows: canvas.height / 175,
+		cols: canvas.width / 90,
+		w: 75,
+		h: 30,
+		p: 10,
+		offT: 30,
+		offL: 40,
+	};
+	let bricks: bricks[][] = [[]];
+	for (var c = 0; c < bricksInfo.cols; c++) {
+		bricks[c] = [];
+		for (var r = 0; r < bricksInfo.rows; r++) {
+			bricks[c][r] = { x: 0, y: 0, status: 1 };
+		}
+	}
 	const info: info = {
 		ctx: ctx,
 		canvas: canvasInfo,
 		ball: ballInfo,
-		//bricks: bricks,
+		bricksInfo: bricksInfo,
+		bricks: bricks,
 		paddle: paddleInfo,
 	};
 	document.addEventListener("keydown", keyDownHandle, false);
