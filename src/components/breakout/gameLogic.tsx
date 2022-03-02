@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import {
 	canvasInfo,
 	ballInfo,
@@ -8,9 +8,7 @@ import {
 	bricks,
 } from "./interface";
 import { draw } from "./draw";
-//import { parentData } from "../../Interface";
 import { keyDownHandle, keyUpHandle } from "./input";
-//import { FunctionComponent } from "react";
 
 export function Canvas() {
 	return (
@@ -25,8 +23,9 @@ export function Canvas() {
 	);
 }
 
-export function game() {
+export function game(getLeaderboard: any, setLeaderboard: any) {
 	console.log("Gaming");
+	getLeaderboard(setLeaderboard);
 	const canvas: HTMLCanvasElement = document.getElementById(
 		"gameCanvas"
 	) as HTMLCanvasElement;
@@ -73,6 +72,9 @@ export function game() {
 		bricksInfo: bricksInfo,
 		bricks: bricks,
 		paddle: paddleInfo,
+		score: 0,
+		lives: 3,
+		playerNum: 1,
 	};
 	document.addEventListener("keydown", keyDownHandle, false);
 	document.addEventListener("keyup", keyUpHandle, false);

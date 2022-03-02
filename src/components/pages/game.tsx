@@ -1,8 +1,13 @@
-import React, { FunctionComponent } from "react";
+import React, { useState } from "react";
 import { Canvas, game } from "../breakout/gameLogic";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
+import { getLeaderboard } from "../../functions/firebase";
+import { leaderBoard } from "../breakout/interface";
 
-export const Game: FunctionComponent = () => {
+export function Game(db: any) {
+	const [leaderboard, setLeaderboard] = useState<leaderBoard[]>([
+		{ name: "test", score: 0 },
+	]);
 	return (
 		<Box
 			sx={{
@@ -14,8 +19,14 @@ export const Game: FunctionComponent = () => {
 				color: "secondary.contrastText",
 			}}
 		>
-			<Button onClick={game}>Play Breakout</Button>
+			<Typography textAlign="center">Leaderboard:</Typography>
+			{leaderboard.map((player) => (
+				<Typography textAlign="center">{player.name}</Typography>
+			))}
+			<Button onClick={() => game(getLeaderboard, setLeaderboard)}>
+				Play Breakout
+			</Button>
 			<Canvas />
 		</Box>
 	);
-};
+}

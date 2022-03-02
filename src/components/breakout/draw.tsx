@@ -42,6 +42,8 @@ export function draw(info: info) {
 	if (ball.x + ball.dx < ball.r || ball.x + ball.dx > canvas.width - ball.r) {
 		ball.dx = -ball.dx;
 	}
+	info.score = collisionDetection(bricks, bricksInfo, ball, info.score);
+	drawScore(ctx, info.score);
 }
 
 function drawBall(
@@ -88,13 +90,15 @@ function drawBricks(
 ) {
 	for (var c = 0; c < info.cols; c++) {
 		for (var r = 0; r < info.rows; r++) {
-			bricks[c][r].x = c * (info.w + info.p) + info.offL;
-			bricks[c][r].y = r * (info.h + info.p) + info.offT;
-			ctx.beginPath();
-			ctx.rect(bricks[c][r].x, bricks[c][r].y, info.w, info.h);
-			ctx.fillStyle = "#0095DD";
-			ctx.fill();
-			ctx.closePath();
+			if (bricks[c][r].status === 1) {
+				bricks[c][r].x = c * (info.w + info.p) + info.offL;
+				bricks[c][r].y = r * (info.h + info.p) + info.offT;
+				ctx.beginPath();
+				ctx.rect(bricks[c][r].x, bricks[c][r].y, info.w, info.h);
+				ctx.fillStyle = "#0095DD";
+				ctx.fill();
+				ctx.closePath();
+			}
 		}
 	}
 }
@@ -102,7 +106,8 @@ function drawBricks(
 function collisionDetection(
 	bricks: bricks[][],
 	info: bricksInfo,
-	ball: ballInfo
+	ball: ballInfo,
+	score: number
 ) {
 	for (var c = 0; c < info.cols; c++) {
 		for (var r = 0; r < info.rows; r++) {
@@ -111,10 +116,20 @@ function collisionDetection(
 				ball.x > b.x &&
 				ball.x < b.x + info.w &&
 				ball.y > b.y &&
-				ball.y < b.y + info.h
+				ball.y < b.y + info.h &&
+				b.status === 1
 			) {
 				ball.dy = -ball.dy;
+				b.status = 0;
+				score++;
 			}
 		}
 	}
+	return score;
+}
+
+function drawScore(ctx: CanvasRenderingContext2D, score: number) {
+	ctx.font = "16px Arial";
+	ctx.fillStyle = "#fff";
+	ctx.fillText("Score: " + score, 8, 20);
 }

@@ -40,9 +40,16 @@ export interface info {
 	ctx: CanvasRenderingContext2D;
 	canvas: canvasInfo;
 	ball: ballInfo;
-	//ballBack: ballInfo
+	score: number;
 	paddle: paddleInfo;
 	bricks: bricks[][];
 	bricksInfo: bricksInfo;
 	interval?: any;
+	playerNum: number;
+	lives: number;
+}
+
+export interface leaderBoard {
+	score: number;
+	name: string;
 }
