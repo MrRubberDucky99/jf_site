@@ -15,9 +15,30 @@ export const Home: FunctionComponent = () => {
 	};
 
 	var dString = "August, 12, 2005";
-
 	var d1 = new Date(dString);
 	var d2 = new Date();
+	const text = (
+		<div>
+			I'm a {DateDiff.inDays(d1, d2)} year old guy from the south east of
+			england. I'm an intermediate guitar player that plays lead guitar in a
+			church youth band{" "}
+			<a href="https://www.arunchurch.com/come-to-church/youth">(Arun Youth)</a>
+			. <br />I also volunteer with the same church helping with{" "}
+			<a href="/AVL"> Sound, Video and Lighting.</a>
+			<br /> I am also engineer for <a href="https://x-cite.uk">
+				{" "}
+				XCite's
+			</a>{" "}
+			live events.
+			<br />I am a (mostly) self taught programmer, working on small projects
+			like a{" "}
+			<a href="https://github.com/MrRubberDucky99/Midi-Pi">
+				Pico Pi Midi Foot Controller
+			</a>
+			<br /> Currently, I go to college in brighton, where I am studying Music
+			Technology, Maths and computer science.
+		</div>
+	);
 	page = (
 		<Box
 			sx={{
@@ -92,21 +113,7 @@ export const Home: FunctionComponent = () => {
 					}}
 					variant="body1"
 				>
-					I'm a {DateDiff.inDays(d1, d2)} year old guy from the south east of
-					england. I'm an intermediate guitar player that plays lead guitar in a
-					church youth band{" "}
-					<a href="https://www.arunchurch.com/come-to-church/youth">
-						(Arun Youth)
-					</a>
-					. <br />I also volunteer with the same church helping with{" "}
-					<a href="/AVL"> Sound, Video and Lighting.</a>
-					<br />I am a (mostly) self taught programmer, working on small
-					projects like a{" "}
-					<a href="https://github.com/MrRubberDucky99/Midi-Pi">
-						Pico Pi Midi Foot Controller
-					</a>
-					<br /> Currently, I go to college in brighton, where I am studying
-					Music Technology, Maths and computer science.
+					{text}
 				</Typography>
 			</Container>
 			<Container
@@ -129,21 +136,7 @@ export const Home: FunctionComponent = () => {
 					}}
 					variant="body1"
 				>
-					I'm a {DateDiff.inDays(d1, d2)} year old guy from the south east of
-					england. I'm an intermediate guitar player that plays lead guitar in a
-					church youth band{" "}
-					<a href="https://www.arunchurch.com/come-to-church/youth">
-						(Arun Youth)
-					</a>
-					. <br />I also volunteer with the same church helping with{" "}
-					<a href="/AVL"> Sound, Video and Lighting.</a>
-					<br />I am a (mostly) self taught programmer, working on small
-					projects like a{" "}
-					<a href="https://github.com/MrRubberDucky99/Midi-Pi">
-						Pico Pi Midi Foot Controller
-					</a>
-					<br /> Currently, I go to college in brighton, where I am studying
-					Music Technology, Maths and computer science.
+					{text}
 				</Typography>
 			</Container>
 			<Container
@@ -205,21 +198,7 @@ export const Home: FunctionComponent = () => {
 					}}
 					variant="body1"
 				>
-					I'm a {DateDiff.inDays(d1, d2)} year old guy from the south east of
-					england. I'm an intermediate guitar player that plays lead guitar in a
-					church youth band{" "}
-					<a href="https://www.arunchurch.com/come-to-church/youth">
-						(Arun Youth)
-					</a>
-					. <br />I also volunteer with the same church helping with{" "}
-					<a href="/AVL"> Sound, Video and Lighting.</a>
-					<br />I am a (mostly) self taught programmer, working on small
-					projects like a{" "}
-					<a href="https://github.com/MrRubberDucky99/Midi-Pi">
-						Pico Pi Midi Foot Controller
-					</a>
-					<br /> Currently, I go to college in brighton, where I am studying
-					Music Technology, Maths and computer science.
+					{text}
 				</Typography>
 			</Container>
 		</Box>
