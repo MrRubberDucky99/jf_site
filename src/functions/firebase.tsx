@@ -9,12 +9,12 @@ import {
 import { leaderBoard } from "../components/breakout/interface";
 
 const firebaseConfig = {
-	apiKey: "AIzaSyAgzlnRnOGk01BFMmS3vD0sjUlqsToaHDA",
+	apiKey: process.env.FIREBASE_APP_ID,
 	authDomain: "website-16f43.firebaseapp.com",
 	projectId: "website-16f43",
 	storageBucket: "website-16f43.appspot.com",
 	messagingSenderId: "531292370818",
-	appId: "1:531292370818:web:b111c0c5168bb6e0e1019b",
+	appId: process.env.FIREBASE_APP_KEY,
 };
 
 // eslint-disable-next-line
