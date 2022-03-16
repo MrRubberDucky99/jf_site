@@ -22,16 +22,18 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore();
 
 export function getLeaderboard(setLeaderboard: any) {
-	const promises = [];
 	const leaderboard: leaderBoard[] = [];
-	const test: any = [];
 
-	const q = query(collection(db, "cities"), where("state", "==", "CA"));
+	const q = query(collection(db, "breakout"));
 	const unsubscribe = onSnapshot(q, (querySnapshot) => {
 		querySnapshot.forEach((doc) => {
 			leaderboard.push({ name: doc.data().name, score: doc.data().score });
+			console.log(leaderboard);
 		});
 		setLeaderboard(leaderboard);
+		console.log(leaderboard);
 	});
+	console.log(leaderboard);
 	unsubscribe();
+	console.log(leaderboard);
 }
