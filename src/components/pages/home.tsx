@@ -23,8 +23,8 @@ export const Home: FunctionComponent = () => {
 			england. I'm an intermediate guitar player that plays lead guitar in a
 			church youth band{" "}
 			<a href="https://www.arunchurch.com/come-to-church/youth">(Arun Youth)</a>
-			. <br />I also volunteer with the same church helping with{" "}
-			<a href="/AVL"> Sound, Video and Lighting.</a>
+			. <br />I also volunteer with the same church helping with Sound, Video
+			and Lighting.
 			<br /> I am also engineer for <a href="https://x-cite.uk">
 				{" "}
 				XCite's
