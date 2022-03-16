@@ -94,12 +94,12 @@ export const Home: FunctionComponent = () => {
 				/>
 			</Container>
 			<Container
-				sx={{ display: { xs: "none", sm: "none", md: "none", lg: "block" } }}
+				sx={{ display: { xs: "none", sm: "none", md: "block", lg: "block" } }}
 			>
 				<Typography
 					align="left"
 					variant="h4"
-					sx={{ position: "relative", left: "125px", top: "60px" }}
+					sx={{ position: "relative", left: "300px", top: "60px" }}
 				>
 					This is me.
 				</Typography>

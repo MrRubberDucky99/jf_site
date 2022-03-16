@@ -27,15 +27,29 @@ export interface bricksInfo {
 	h: number;
 	p: number;
 	offT: number;
-	offB: number;
+	offL: number;
+}
+
+export interface bricks {
+	x: number;
+	y: number;
+	status: number;
 }
 
 export interface info {
 	ctx: CanvasRenderingContext2D;
 	canvas: canvasInfo;
 	ball: ballInfo;
-	//ballBack: ballInfo
+	score: number;
 	paddle: paddleInfo;
-	//bricks: bricksInfo
+	bricks: bricks[][];
+	bricksInfo: bricksInfo;
 	interval?: any;
+	playerNum: number;
+	lives: number;
+}
+
+export interface leaderBoard {
+	score: number;
+	name: string;
 }

@@ -6,8 +6,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { pages } from "./Interface";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ResponsiveAppBar from "./components/TopNav";
-//import { Canvas, Game } from "./components/breakout/gameLogic";
 import { Home } from "./components/pages/home";
+import { Game } from "./components/pages/game";
 import { Box } from "@mui/material";
 
 declare module "@mui/material/Button" {
@@ -75,9 +75,9 @@ const theme = createTheme({
 });
 
 const Pages: pages = {
-	labels: ["Home"],
-	pageNum: [0],
-	element: [<Home />],
+	labels: ["Home", "Game"],
+	pageNum: [0, 1],
+	element: [<Home />, <Game />],
 };
 
 ReactDOM.render(
@@ -89,36 +89,37 @@ ReactDOM.render(
 						backgroundColor: "secondary.dark",
 						display: "flex",
 						flexDirection: "column",
-						alignItems: "center",
-						justifyContent: "space-evenly",
+						alignItems: "top",
+						justifyContent: "space-between",
 						color: "secondary.contrastText",
 					}}
 				>
 					<ResponsiveAppBar pageLabels={Pages.labels} currentPage={0} />
-					<Routes>
-						<Route index element={Pages.element[0]} />
-						{Pages.pageNum.map((num) => (
-							<Route
-								path={Pages.labels[num].toLowerCase()}
-								element={Pages.element[num]}
-							/>
-						))}
-					</Routes>
+					<Box
+						sx={{
+							backgroundColor: "secondary.dark",
+							display: "flex",
+							flexDirection: "column",
+							flexWrap: "wrap",
+							minHeight: "93vh",
+							justifyContent: "space-between",
+							color: "secondary.contrastText",
+						}}
+					>
+						<Routes>
+							<Route index element={Pages.element[0]} />
+							{Pages.pageNum.map((num) => (
+								<Route
+									path={Pages.labels[num].toLowerCase()}
+									element={Pages.element[num]}
+								/>
+							))}
+						</Routes>
+					</Box>
 				</Box>
 			</BrowserRouter>
 		</ThemeProvider>
 	</React.StrictMode>,
 	document.getElementById("root")
 );
-//Game();
-//<Canvas />
-// pageNav={pageLbls1[rootAddr]}
-// pageData={pageData1[rootAddr]}
-/**
- *
- */
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
