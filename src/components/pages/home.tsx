@@ -94,7 +94,7 @@ export const Home: FunctionComponent = () => {
 				/>
 			</Container>
 			<Container
-				sx={{ display: { xs: "none", sm: "none", md: "block", lg: "block" } }}
+				sx={{ display: { xs: "none", sm: "none", md: "none", lg: "block" } }}
 			>
 				<Typography
 					align="left"
@@ -107,7 +107,7 @@ export const Home: FunctionComponent = () => {
 					align="left"
 					sx={{
 						position: "relative",
-						left: "150px",
+						left: "350px",
 						top: "80px",
 						maxWidth: "60vw",
 					}}
@@ -122,7 +122,7 @@ export const Home: FunctionComponent = () => {
 				<Typography
 					align="left"
 					variant="h4"
-					sx={{ position: "relative", left: "125px", top: "60px" }}
+					sx={{ position: "relative", left: "350px", top: "60px" }}
 				>
 					This is me.
 				</Typography>
@@ -130,7 +130,7 @@ export const Home: FunctionComponent = () => {
 					align="left"
 					sx={{
 						position: "relative",
-						left: "150px",
+						left: "350px",
 						top: "80px",
 						maxWidth: "50vw",
 					}}
@@ -181,7 +181,13 @@ export const Home: FunctionComponent = () => {
 					}}
 				/>
 			</Container>
-			<Container sx={{ display: { xs: "block", sm: "block", md: "none" } }}>
+			<Container
+				sx={{
+					flexDirection: "column",
+					alignItems: "center",
+					display: { xs: "block", sm: "block", md: "none" },
+				}}
+			>
 				<Typography
 					align="center"
 					variant="h4"
@@ -194,6 +200,7 @@ export const Home: FunctionComponent = () => {
 					sx={{
 						position: "relative",
 						top: "500px",
+						left: "5vw",
 						maxWidth: "80vw",
 					}}
 					variant="body1"
