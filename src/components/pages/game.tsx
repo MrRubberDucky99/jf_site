@@ -5,10 +5,8 @@ import { getLeaderboard } from "../../functions/firebase";
 import { leaderBoard } from "../breakout/interface";
 
 export function Game(db: any) {
-	const [leaderboard, setLeaderboard] = useState<leaderBoard[]>([
-		{ name: "test", score: 1 },
-		{ name: "test2", score: 0 },
-	]);
+	const [leaderboard, setLeaderboard] = useState<leaderBoard[]>([]);
+	getLeaderboard(setLeaderboard);
 	return (
 		<Box
 			sx={{

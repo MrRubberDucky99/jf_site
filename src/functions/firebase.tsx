@@ -3,7 +3,7 @@ import {
 	collection,
 	query,
 	where,
-	onSnapshot,
+	getDocs,
 	getFirestore,
 } from "firebase/firestore";
 import { leaderBoard } from "../components/breakout/interface";
@@ -21,19 +21,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore();
 
-export function getLeaderboard(setLeaderboard: any) {
-	const leaderboard: leaderBoard[] = [];
+export async function getLeaderboard(setLeaderboard: any) {
+	const Leaderboard: leaderBoard[] = [];
+	const q = query(collection(db, "breakout"), where("show", "==", true));
 
-	const q = query(collection(db, "breakout"));
-	const unsubscribe = onSnapshot(q, (querySnapshot) => {
-		querySnapshot.forEach((doc) => {
-			leaderboard.push({ name: doc.data().name, score: doc.data().score });
-			console.log(leaderboard);
-		});
-		setLeaderboard(leaderboard);
-		console.log(leaderboard);
+	const querySnapshot = await getDocs(q);
+	querySnapshot.forEach((doc) => {
+		Leaderboard.push({ name: doc.data().name, score: doc.data().score });
 	});
-	console.log(leaderboard);
-	unsubscribe();
-	console.log(leaderboard);
+	setLeaderboard(Leaderboard);
 }
