@@ -18,13 +18,16 @@ import { useNavigate } from "react-router-dom";
 type navProps = {
 	pageLabels: string[];
 	currentPage: number;
+	hiddenPages: boolean[];
 };
 
 export const ResponsiveAppBar: FunctionComponent<navProps> = ({
 	pageLabels,
 	currentPage,
+	hiddenPages,
 }) => {
 	const navigate = useNavigate();
+	const newPageLabels = [];
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
 		null
 	);
@@ -41,6 +44,12 @@ export const ResponsiveAppBar: FunctionComponent<navProps> = ({
 		handleCloseNavMenu();
 		navigate("/" + address);
 	};
+
+	for (let i = 0; i < pageLabels.length; i++) {
+		if (!hiddenPages[i]) {
+			newPageLabels.push(pageLabels[i]);
+		}
+	}
 
 	return (
 		<AppBar position="sticky" sx={{ bgcolor: "primary.main" }}>
@@ -87,7 +96,7 @@ export const ResponsiveAppBar: FunctionComponent<navProps> = ({
 								display: { xs: "block", md: "none" },
 							}}
 						>
-							{pageLabels.map((page) => (
+							{newPageLabels.map((page) => (
 								<MenuItem
 									key={page.toLowerCase()}
 									onClick={() => linkClick(page.toLowerCase())}
@@ -113,7 +122,7 @@ export const ResponsiveAppBar: FunctionComponent<navProps> = ({
 							display: { xs: "none", md: "flex" },
 						}}
 					>
-						{pageLabels.map((page) => (
+						{newPageLabels.map((page) => (
 							<Button
 								key={page.toLowerCase()}
 								onClick={() => linkClick(page.toLowerCase())}
@@ -133,12 +142,12 @@ export const ResponsiveAppBar: FunctionComponent<navProps> = ({
 					</Box>
 					<Box sx={{}}>
 						<Button
-							key={pageLabels[currentPage].toLowerCase()}
+							key={newPageLabels[currentPage].toLowerCase()}
 							onClick={handleCloseNavMenu}
 							sx={{ my: 2, color: "white", display: "block" }}
 							disableRipple
 						>
-							<Typography variant="h5">{pageLabels[currentPage]}</Typography>
+							<Typography variant="h5">{newPageLabels[currentPage]}</Typography>
 						</Button>
 					</Box>
 				</Toolbar>

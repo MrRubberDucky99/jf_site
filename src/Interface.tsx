@@ -9,6 +9,7 @@ export interface pages {
 	labels: string[];
 	pageNum: number[];
 	element: ReactElement<any, any>[];
+	hidden: boolean[];
 }
 
 export interface experience {
