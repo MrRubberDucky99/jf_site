@@ -6,6 +6,7 @@ import {
 	info,
 	bricksInfo,
 	bricks,
+	gameInfo,
 } from "./interface";
 import { draw } from "./draw";
 import { keyDownHandle, keyUpHandle } from "./input";
@@ -23,13 +24,17 @@ export function Canvas() {
 	);
 }
 
-export function game(getLeaderboard: any, setLeaderboard: any) {
-	console.log("Gaming");
-	getLeaderboard(setLeaderboard);
+export function game(
+	setInfo: React.Dispatch<React.SetStateAction<gameInfo>>,
+	name: string,
+	gameInfo: gameInfo
+) {
+	console.log("Starting Game");
 	const canvas: HTMLCanvasElement = document.getElementById(
 		"gameCanvas"
 	) as HTMLCanvasElement;
 	const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+	setInfo({ state: "RUNNING", score: 0 });
 	const ballInfo: ballInfo = {
 		r: 10,
 		x: canvas.width / 2,
@@ -75,10 +80,11 @@ export function game(getLeaderboard: any, setLeaderboard: any) {
 		score: 0,
 		lives: 3,
 		playerNum: 1,
+		name: name,
 	};
 	document.addEventListener("keydown", keyDownHandle, false);
 	document.addEventListener("keyup", keyUpHandle, false);
 	let interval;
 	info.interval = interval;
-	interval = setInterval(draw, 10, info);
+	interval = setInterval(draw, 10, info, setInfo, gameInfo);
 }

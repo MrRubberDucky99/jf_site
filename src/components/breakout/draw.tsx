@@ -6,10 +6,16 @@ import {
 	info,
 	bricks,
 	bricksInfo,
+	gameInfo,
 } from "./interface";
 import { pressed } from "./input";
+import { uploadScore } from "../../functions/firebase";
 
-export function draw(info: info) {
+export function draw(
+	info: info,
+	setInfo: React.Dispatch<React.SetStateAction<gameInfo>>,
+	gameInfo: gameInfo
+) {
 	const ctx = info.ctx;
 	const canvas = info.canvas;
 	const paddle = info.paddle;
@@ -33,10 +39,22 @@ export function draw(info: info) {
 		if (ball.x > paddle.x && ball.x < paddle.x + paddle.w) {
 			ball.dy = -ball.dy;
 		} else {
-			info.ball = ballBack;
-			alert("GAME OVER");
-			document.location.reload();
 			clearInterval(info.interval);
+			setInfo({ state: "OVER", score: info.score });
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.font = "64px Arial";
+			ctx.fillStyle = "#fff";
+			ctx.fillText("GAME OVER!", 20, canvas.height / 3);
+			ctx.fillText("Score: " + info.score, 20, (canvas.height * 2) / 3);
+			ctx.font = "32px Arial";
+			ctx.fillStyle = "#fff";
+			ctx.fillText(
+				"Reload to play again or enter your score on the leaderboard below",
+				20,
+				(canvas.height * 3) / 4
+			);
+			uploadScore(info.name, gameInfo.score);
+			setInfo({ state: "READY", score: 0 });
 		}
 	}
 	if (ball.x + ball.dx < ball.r || ball.x + ball.dx > canvas.width - ball.r) {

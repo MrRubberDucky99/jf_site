@@ -47,9 +47,15 @@ export interface info {
 	interval?: any;
 	playerNum: number;
 	lives: number;
+	name: string;
 }
 
 export interface leaderBoard {
 	score: number;
 	name: string;
+}
+
+export interface gameInfo {
+	state: "READY" | "RUNNING" | "OVER";
+	score: number;
 }

@@ -5,6 +5,8 @@ import {
 	where,
 	getDocs,
 	getFirestore,
+	doc,
+	setDoc,
 } from "firebase/firestore";
 import { leaderBoard } from "../components/breakout/interface";
 
@@ -22,12 +24,30 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore();
 
 export async function getLeaderboard(setLeaderboard: any) {
+	console.log("Getting Leaderboard");
 	const Leaderboard: leaderBoard[] = [];
 	const q = query(collection(db, "breakout"), where("show", "==", true));
 
 	const querySnapshot = await getDocs(q);
 	querySnapshot.forEach((doc) => {
+		console.log("Got Data");
 		Leaderboard.push({ name: doc.data().name, score: doc.data().score });
 	});
 	setLeaderboard(Leaderboard);
+}
+
+export async function uploadScore(name: string, score: number) {
+	if (name !== "") {
+		try {
+			await setDoc(doc(db, "breakout", name), {
+				name: name,
+				score: score,
+				show: true,
+			});
+			console.log("Score Uploaded");
+		} catch (e) {
+			console.error("Error adding document: ", e);
+		}
+		name = "";
+	}
 }
