@@ -36,18 +36,30 @@ export async function getLeaderboard(setLeaderboard: any) {
 	setLeaderboard(Leaderboard);
 }
 
-export async function uploadScore(name: string, score: number) {
-	if (name !== "") {
+export async function uploadScore(
+	name: string,
+	score: number,
+	changeName: Function,
+	reloadRef: any
+) {
+	window.location.href = reloadRef;
+	if (name === "") {
+	} else {
+		console.log("Uploading: " + name + ", " + score);
 		try {
 			await setDoc(doc(db, "breakout", name), {
 				name: name,
 				score: score,
 				show: true,
-			});
-			console.log("Score Uploaded");
+			}).then(window.location.reload);
+			changeName("");
+			alert(
+				"Game Over! You Scored: " +
+					score +
+					". \nThis pop-up may show up a few times"
+			);
 		} catch (e) {
-			console.error("Error adding document: ", e);
+			console.error("Error uploading score: ", e);
 		}
-		name = "";
 	}
 }

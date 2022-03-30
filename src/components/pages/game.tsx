@@ -6,14 +6,20 @@ import { leaderBoard, gameInfo } from "../breakout/interface";
 
 export function Game(db: any) {
 	const [leaderboard, setLeaderboard] = useState<leaderBoard[]>([]);
+	const [name, setName] = useState<string>("");
 	const [gameInfo, setGameInfo] = useState<gameInfo>({
 		state: "READY",
 		score: 0,
 	});
-	if (leaderboard.length === 0 || gameInfo.state === "OVER") {
+	if (leaderboard.length === 0) {
 		getLeaderboard(setLeaderboard);
 	}
-	let inputRef: any;
+
+	function changeName(name: any) {
+		let newName = name.toString();
+		setName(newName);
+	}
+
 	return (
 		<Box
 			sx={{
@@ -28,17 +34,19 @@ export function Game(db: any) {
 			<Input
 				placeholder="Enter Your Name"
 				sx={{ color: "secondary.contrastText" }}
-				inputRef={(ref) => {
-					inputRef = ref;
-				}}
+				value={name}
+				onChange={(val) => changeName(val.target.value)}
 			/>
-			<Button onClick={() => game(setGameInfo, inputRef, gameInfo)}>
+			<Button onClick={() => game(setGameInfo, name, gameInfo, changeName)}>
 				Play Breakout
 			</Button>
 			<Canvas />
 			<Typography textAlign="center">Leaderboard:</Typography>
 			{leaderboard.map((player) => (
-				<Typography textAlign="center">{player.name}</Typography>
+				<Container sx={{ maxWidth: "50vw" }}>
+					<Typography textAlign="left">{player.name}</Typography>
+					<Typography textAlign="right">{player.score}</Typography>
+				</Container>
 			))}
 			<Container
 				sx={{

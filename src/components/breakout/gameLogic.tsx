@@ -16,7 +16,7 @@ export function Canvas() {
 		<div>
 			<canvas
 				id="gameCanvas"
-				width={window.innerWidth}
+				width={window.innerWidth - 20}
 				height={window.innerHeight - 200}
 				style={{ minHeight: 400, maxHeight: 1600 }}
 			/>
@@ -27,64 +27,71 @@ export function Canvas() {
 export function game(
 	setInfo: React.Dispatch<React.SetStateAction<gameInfo>>,
 	name: string,
-	gameInfo: gameInfo
+	gameInfo: gameInfo,
+	changeName: Function
 ) {
-	console.log("Starting Game");
-	const canvas: HTMLCanvasElement = document.getElementById(
-		"gameCanvas"
-	) as HTMLCanvasElement;
-	const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-	setInfo({ state: "RUNNING", score: 0 });
-	const ballInfo: ballInfo = {
-		r: 10,
-		x: canvas.width / 2,
-		y: (canvas.height * 3) / 4,
-		dx: 2,
-		dy: -2,
-	};
-	const canvasInfo: canvasInfo = {
-		width: canvas.width,
-		height: canvas.height,
-	};
-	const paddleInfo: paddleInfo = {
-		h: 10,
-		w: 75,
-		x: 50,
-		y: 50,
-	};
-	paddleInfo.x = (canvas.width - paddleInfo.w) / 2;
-	paddleInfo.y = canvas.height - paddleInfo.h;
-	const bricksInfo: bricksInfo = {
-		rows: canvas.height / 175,
-		cols: canvas.width / 90,
-		w: 75,
-		h: 30,
-		p: 10,
-		offT: 30,
-		offL: 40,
-	};
-	let bricks: bricks[][] = [[]];
-	for (var c = 0; c < bricksInfo.cols; c++) {
-		bricks[c] = [];
-		for (var r = 0; r < bricksInfo.rows; r++) {
-			bricks[c][r] = { x: 0, y: 0, status: 1 };
+	if (name === "") {
+		alert("Please Set A Name");
+		console.log(name);
+	} else {
+		console.log(name);
+		const canvas: HTMLCanvasElement = document.getElementById(
+			"gameCanvas"
+		) as HTMLCanvasElement;
+		changeName(name);
+		const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+		setInfo({ state: "RUNNING", score: 0 });
+		const ballInfo: ballInfo = {
+			r: 10,
+			x: canvas.width / 2,
+			y: (canvas.height * 3) / 4,
+			dx: 2,
+			dy: -2,
+		};
+		const canvasInfo: canvasInfo = {
+			width: canvas.width,
+			height: canvas.height,
+		};
+		const paddleInfo: paddleInfo = {
+			h: 10,
+			w: 75,
+			x: 50,
+			y: 50,
+		};
+		paddleInfo.x = (canvas.width - paddleInfo.w) / 2;
+		paddleInfo.y = canvas.height - paddleInfo.h;
+		const bricksInfo: bricksInfo = {
+			rows: canvas.height / 175,
+			cols: canvas.width / 90,
+			w: 75,
+			h: 30,
+			p: 10,
+			offT: 30,
+			offL: 40,
+		};
+		let bricks: bricks[][] = [[]];
+		for (var c = 0; c < bricksInfo.cols; c++) {
+			bricks[c] = [];
+			for (var r = 0; r < bricksInfo.rows; r++) {
+				bricks[c][r] = { x: 0, y: 0, status: 1 };
+			}
 		}
+		const info: info = {
+			ctx: ctx,
+			canvas: canvasInfo,
+			ball: ballInfo,
+			bricksInfo: bricksInfo,
+			bricks: bricks,
+			paddle: paddleInfo,
+			score: 0,
+			lives: 3,
+			playerNum: 1,
+			name: name,
+		};
+		document.addEventListener("keydown", keyDownHandle, false);
+		document.addEventListener("keyup", keyUpHandle, false);
+		let interval;
+		info.interval = interval;
+		interval = setInterval(draw, 10, info, setInfo, gameInfo, changeName);
 	}
-	const info: info = {
-		ctx: ctx,
-		canvas: canvasInfo,
-		ball: ballInfo,
-		bricksInfo: bricksInfo,
-		bricks: bricks,
-		paddle: paddleInfo,
-		score: 0,
-		lives: 3,
-		playerNum: 1,
-		name: name,
-	};
-	document.addEventListener("keydown", keyDownHandle, false);
-	document.addEventListener("keyup", keyUpHandle, false);
-	let interval;
-	info.interval = interval;
-	interval = setInterval(draw, 10, info, setInfo, gameInfo);
 }
