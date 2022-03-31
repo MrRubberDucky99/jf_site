@@ -30,6 +30,7 @@ const theme = createTheme({
 			dark: "#12005e",
 			contrastText: "#fff",
 		},
+		info: { main: "#fff" },
 	},
 	components: {
 		MuiButton: {
@@ -74,9 +75,16 @@ const theme = createTheme({
 	},
 });
 
+//let hiddenPage0: string = "";
+
+//if (process.env.HIDDEN_PAGE_0 !== undefined) {
+//	hiddenPage0 = process.env.HIDDEN_PAGE_0;
+//}
+
 const Pages: pages = {
 	labels: ["Home", "Game"],
 	pageNum: [0, 1],
+	hidden: [false, false],
 	element: [<Home />, <Game />],
 };
 
@@ -94,7 +102,11 @@ ReactDOM.render(
 						color: "secondary.contrastText",
 					}}
 				>
-					<ResponsiveAppBar pageLabels={Pages.labels} currentPage={0} />
+					<ResponsiveAppBar
+						pageLabels={Pages.labels}
+						currentPage={0}
+						hiddenPages={Pages.hidden}
+					/>
 					<Box
 						sx={{
 							backgroundColor: "secondary.dark",

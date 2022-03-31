@@ -6,23 +6,23 @@ import {
 	info,
 	bricks,
 	bricksInfo,
+	gameInfo,
 } from "./interface";
 import { pressed } from "./input";
+import { uploadScore } from "../../functions/firebase";
 
-export function draw(info: info) {
+export function draw(
+	info: info,
+	setInfo: React.Dispatch<React.SetStateAction<gameInfo>>,
+	gameInfo: gameInfo,
+	changeName: Function
+) {
 	const ctx = info.ctx;
 	const canvas = info.canvas;
 	const paddle = info.paddle;
 	const ball = info.ball;
 	const bricks = info.bricks;
 	const bricksInfo = info.bricksInfo;
-	const ballBack: ballInfo = {
-		r: 10,
-		x: canvas.width / 2,
-		y: (canvas.height * 3) / 4,
-		dx: 2,
-		dy: -2,
-	};
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	drawBricks(ctx, bricks, bricksInfo);
 	drawPaddle(ctx, paddle, canvas);
@@ -33,10 +33,23 @@ export function draw(info: info) {
 		if (ball.x > paddle.x && ball.x < paddle.x + paddle.w) {
 			ball.dy = -ball.dy;
 		} else {
-			info.ball = ballBack;
-			alert("GAME OVER");
-			document.location.reload();
+			let reloadRef = window.location.href;
 			clearInterval(info.interval);
+			setInfo({ state: "OVER", score: info.score });
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			setInfo({ state: "READY", score: info.score });
+			uploadScore(info.name, info.score, changeName, reloadRef);
+			ctx.font = "64px Arial";
+			ctx.fillStyle = "#fff";
+			ctx.fillText("GAME OVER!", 20, canvas.height / 3);
+			ctx.fillText("Score: " + info.score, 20, (canvas.height * 2) / 3);
+			ctx.font = "32px Arial";
+			ctx.fillStyle = "#fff";
+			ctx.fillText(
+				"This page will reload once your score is uploaded",
+				20,
+				(canvas.height * 3) / 4
+			);
 		}
 	}
 	if (ball.x + ball.dx < ball.r || ball.x + ball.dx > canvas.width - ball.r) {
@@ -120,7 +133,13 @@ function collisionDetection(
 				b.status === 1
 			) {
 				ball.dy = -ball.dy;
-				b.status = 0;
+				ball.dy = ball.dy * 1.05;
+				ball.dx = ball.dx * 1.05;
+				if (score % (info.cols * info.rows) === 0 && score !== 0) {
+					b.status = 1;
+				} else {
+					b.status = 0;
+				}
 				score++;
 			}
 		}
